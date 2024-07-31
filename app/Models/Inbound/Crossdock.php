@@ -14,7 +14,7 @@ class Crossdock extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getCrossdock(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Crossdock');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Crossdock');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

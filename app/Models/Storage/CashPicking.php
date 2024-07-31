@@ -14,7 +14,7 @@ class CashPicking extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getCashPicking(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Cash_Picking');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Cash_Picking');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

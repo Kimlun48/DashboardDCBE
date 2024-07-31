@@ -15,7 +15,7 @@ class Po extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getPo(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Detail_PO');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Detail_PO');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

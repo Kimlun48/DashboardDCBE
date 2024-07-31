@@ -14,7 +14,7 @@ class Putaway extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getPutaway(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Putaway');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Putaway');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

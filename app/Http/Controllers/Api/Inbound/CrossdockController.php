@@ -24,7 +24,7 @@ class CrossdockController extends Controller
 
     public function late()
     {
-        $late = $this->data->where('late', '>', 0);
+        $late = $this->data->where('LATE', '>', 0);
         return new lateCrossdockResource(true, 'List Data Crossdock', $late);
         
         
@@ -38,20 +38,20 @@ class CrossdockController extends Controller
 
     public function getStatistic()
     {
-        $late = $this->data->where('late', '>', 0)->count();
-        $ontime = $this->data->where('late', '=', 0)->count();
+        $late = $this->data->where('LATE', '>', 0)->count();
+        $ontime = $this->data->where('LATE', '=', 0)->count();
         $total_all = $late + $ontime;
 
-        $totalQTYLate = $this->data->where('late', '>', 0)->sum('qty');
-        $totalQTYOntime = $this->data->where('late', '=', 0)->sum('qty');
+        $totalQTYLate = $this->data->where('LATE', '>', 0)->sum('QTY');
+        $totalQTYOntime = $this->data->where('LATE', '=', 0)->sum('QTY');
 
         $totalItemlate = $this->data
-        ->where('late', '>', 0)  // Filter data dengan Deadline > 0
+        ->where('LATE', '>', 0)  // Filter data dengan Deadline > 0
         ->groupBy('ITEM_DESC')      // Kelompokkan berdasarkan receipt_id
         ->count();                   // Hitung jumlah distinct receipt_id
 
         $totalItemOntime = $this->data
-        ->where('late', '=', 0)  // Filter data dengan Deadline > 0
+        ->where('LATE', '=', 0)  // Filter data dengan Deadline > 0
         ->groupBy('ITEM_DESC')      // Kelompokkan berdasarkan receipt_id
         ->count();  
         
@@ -63,13 +63,13 @@ class CrossdockController extends Controller
             'success' => true,
             'message' => 'Statistik Data CROSSDOCK',
             'data' => [
-                'late' => $late,
-                'ontime' => $ontime,
-                'total' => $total,
-                'total_QTY_late' => $totalQTYLate,
-                'total_QTY_ontime' => $totalQTYOntime,
-                'Total_Item_late' => $totalItemlate,
-                'Total_Item_Ontime' => $totalItemOntime,
+                'LATE' => $late,
+                'ONTIME' => $ontime,
+                'TOTAL' => $total,
+                'TOTAL_QTY_LATE' => $totalQTYLate,
+                'TOTAL_QTY_ONTIME' => $totalQTYOntime,
+                'TOTAL_ITEM_LATE' => $totalItemlate,
+                'TOTAL_ITEM_ONTIME' => $totalItemOntime,
             ],
         ]);
     }

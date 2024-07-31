@@ -69,16 +69,16 @@ class ArReserveController extends Controller
             'success' => true,
             'message' => 'Statistik Data ArReserve ',
             'data' => [
-                'late' => $late,
-                'today'=> $today,
-                'dDay' => $dDay,
+                'LATE' => $late,
+                'TODAY'=> $today,
+                'DDAY' => $dDay,
 
-                'total' => $total,
+                'TOTAL' => $total,
                 // 'total_QTY_late' => $totalQTYLate,
                 // 'total_QTY_ontime' => $totalQTYOntime,
-                'Total_Doc_late' => $totalDoclate,
-                'Total_Doc_today' => $totalDocToday,
-                'Total_Doc_dDay' => $totalDocdDay
+                'TOTAL_DOC_LATE' => $totalDoclate,
+                'TOTAL_DOC_TODAY' => $totalDocToday,
+                'TOTAL_DOC_DDAY' => $totalDocdDay
             ],
         ]);
     }

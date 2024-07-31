@@ -25,33 +25,33 @@ class ItrInController extends Controller
 
     public function late()
     {
-        $late = $this->data->where('Late', '>', 0);
+        $late = $this->data->where('LATE', '>', 0);
         return new LateItrInResource(true, 'List Data ITRIN', $late);
     }
 
     public function onTime()
     {
-        $ontime = $this->data->where('Deadline', '=', 0);
+        $ontime = $this->data->where('DEADLINE', '=', 0);
         return new OntimeItrInResource(true, 'List Data ITRIN', $ontime);
     }
 
     public function getStatistic()
     {
-        $late = $this->data->where('Deadline', '>', 0)->count();
-        $ontime = $this->data->where('Deadline', '=', 0)->count();
+        $late = $this->data->where('DEADLINE', '>', 0)->count();
+        $ontime = $this->data->where('DEADLINE', '=', 0)->count();
         $total_all = $late + $ontime;
 
-        $totalQTYLate = $this->data->where('Deadline', '>', 0)->sum('open_qty');
-        $totalQTYOntime = $this->data->where('Deadline', '=', 0)->sum('open_qty');
+        $totalQTYLate = $this->data->where('DEADLINE', '>', 0)->sum('OPEN_QTY');
+        $totalQTYOntime = $this->data->where('DEADLINE', '=', 0)->sum('OPEN_QTY');
 
         $totalDoclate = $this->data
-        ->where('Deadline', '>', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('receipt_id')      // Kelompokkan berdasarkan receipt_id
+        ->where('DEADLINE', '>', 0)  // Filter data dengan Deadline > 0
+        ->groupBy('RECEIPT_ID')      // Kelompokkan berdasarkan receipt_id
         ->count();                   // Hitung jumlah distinct receipt_id
 
         $totalDocOntime = $this->data
-        ->where('Deadline', '=', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('receipt_id')      // Kelompokkan berdasarkan receipt_id
+        ->where('DEADLINE', '=', 0)  // Filter data dengan Deadline > 0
+        ->groupBy('RECEIPT_ID')      // Kelompokkan berdasarkan receipt_id
         ->count();  
          
         $total = $totalDoclate + $totalDocOntime;
@@ -62,13 +62,13 @@ class ItrInController extends Controller
             'success' => true,
             'message' => 'Statistik Data ITRIN',
             'data' => [
-                'late' => $late,
-                'ontime' => $ontime,
-                'total' => $total,
-                'total_QTY_late' => $totalQTYLate,
-                'total_QTY_ontime' => $totalQTYOntime,
-                'Total_Doc_late' => $totalDoclate,
-                'Total_Doc_Ontime' => $totalDocOntime,
+                'LATE' => $late,
+                'ONTIME' => $ontime,
+                'TOTAL' => $total,
+                'TOTAL_QTY_LATE' => $totalQTYLate,
+                'TOTAL_QTY_ONTIME' => $totalQTYOntime,
+                'TOTAL_DOC_LATE' => $totalDoclate,
+                'TOTAL_DOC_ONTIME' => $totalDocOntime,
             ],
         ]);
     }

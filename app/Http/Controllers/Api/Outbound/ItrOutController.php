@@ -22,16 +22,16 @@ class ItrOutController extends Controller
 
     public function late()
     {
-        $late = $this->data->where('Kondisi', '=', 'Late');
+        $late = $this->data->where('CONDITION', '=', 'Late');
         return new lateItrOutResource(true, 'List Data ItrOUt', $late);
     }
 
     
     public function getStatistic()
     {
-        $late = $this->data->where('Kondisi', '=', 'Late')->count();
-        $today = $this->data->where('Kondisi', '=', 'Today')->count();
-        $dDay = $this->data->where('Kondisi', '=', 'H-1')->count();
+        $late = $this->data->where('CONDITION', '=', 'Late')->count();
+        $today = $this->data->where('CONDITION', '=', 'Today')->count();
+        $dDay = $this->data->where('CONDITION', '=', 'H-1')->count();
 
         //dd($late);
         
@@ -41,18 +41,18 @@ class ItrOutController extends Controller
         // $totalQTYOntime = $this->data->where('late', '=', 0)->sum('Total_QTY');
 
         $totalDoclate = $this->data
-        ->where('Kondisi', '=', 'Late')  // Filter data dengan Deadline > 0
-        ->groupBy('DocNum')      // Kelompokkan berdasarkan receipt_id
+        ->where('CONDITION', '=', 'Late')  // Filter data dengan Deadline > 0
+        ->groupBy('DOCNUM')      // Kelompokkan berdasarkan receipt_id
         ->count();                   // Hitung jumlah distinct receipt_id
 
         $totalDocToday = $this->data
-        ->where('Kondisi', '=', 'Today')  // Filter data dengan Deadline > 0
-        ->groupBy('DocNum')      // Kelompokkan berdasarkan receipt_id
+        ->where('CONDITION', '=', 'Today')  // Filter data dengan Deadline > 0
+        ->groupBy('DOCNUM')      // Kelompokkan berdasarkan receipt_id
         ->count();  
         
         $totalDocdDay = $this->data
-        ->where('Kondisi', '=', 'H-1')  // Filter data dengan Deadline > 0
-        ->groupBy('DocNum')      // Kelompokkan berdasarkan receipt_id
+        ->where('CONDITION', '=', 'H-1')  // Filter data dengan Deadline > 0
+        ->groupBy('DOCNUM')      // Kelompokkan berdasarkan receipt_id
         ->count();  
 
         $total = $totalDoclate + $totalDocToday + $totalDocdDay;
@@ -63,16 +63,16 @@ class ItrOutController extends Controller
             'success' => true,
             'message' => 'Statistik Data ITR Out ',
             'data' => [
-                'late' => $late,
-                'today'=> $today,
-                'dDay' => $dDay,
+                'LATE' => $late,
+                'TODAY'=> $today,
+                'DDAY' => $dDay,
 
-                'total' => $total,
+                'TOTAL' => $total,
                 // 'total_QTY_late' => $totalQTYLate,
                 // 'total_QTY_ontime' => $totalQTYOntime,
-                'Total_Doc_late' => $totalDoclate,
-                'Total_Doc_today' => $totalDocToday,
-                'Total_Doc_dDay' => $totalDocdDay
+                'TOTAL_DOC_LATE' => $totalDoclate,
+                'TOTAL_DOC_TODAY' => $totalDocToday,
+                'TOTAL_DOC_DDAY' => $totalDocdDay
             ],
         ]);
     

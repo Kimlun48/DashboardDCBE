@@ -112,6 +112,12 @@ Route::get('/v2statisticcrossdock', [\App\Http\Controllers\Api\Inbound\Crossdock
 Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
 Route::get('/v2latepo' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'late']);
 Route::get('/v2statisticpo' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'getStatistic']);
+Route::get('/v2grpo', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'index']);
+Route::get('/v2grpotoplate', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'toplate']);
+Route::get('/v2grpothreelate', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'threemounthLate']);
+Route::get('/v2grpothreeontime', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'threemounthOntime']);
+Route::get('/v2grpochart', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'getStatistics']);
+
 ##return
 Route::get('/v2return', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'index']);
 Route::get('/v2latereturn', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'late']);
@@ -134,6 +140,8 @@ Route::get('/v2statisticputaway', [\App\Http\Controllers\Api\Storage\PutawayCont
 Route::get('/v2replenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'index']);
 Route::get('/v2latereplenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'late']);
 Route::get('/v2statisticreplenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'getStatistic']);
+#listpicking
+Route::get('/v2listpicking', [\App\Http\Controllers\Api\Storage\ListPickingController::class,'index']);
 
 ##outbound
 #arreserve

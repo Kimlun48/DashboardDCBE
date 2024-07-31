@@ -13,6 +13,8 @@ class user extends Model
 {
     use HasFactory,Notifiable, HasApiTokens, HasRoles;
 
+    protected $guard_name ='api';
+
     protected $fillable = [
         'name',
         'email',

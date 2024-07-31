@@ -24,7 +24,7 @@ class DeliveryPickingContoller extends Controller
 
     public function late()
     {
-        $late = $this->data->where('Late', '>', 0);
+        $late = $this->data->where('LATE', '<', 0);
         return new lateDeliveryPicResource(true, 'List Data deliveryPicking', $late);
     }
 
@@ -35,21 +35,21 @@ class DeliveryPickingContoller extends Controller
 
     public function getStatistic()
     {
-        $late = $this->data->where('Late', '>', 0)->count();
-        $ontime = $this->data->where('Late', '=', 0)->count();
+        $late = $this->data->where('LATE', '<', 0)->count();
+        $ontime = $this->data->where('LATE', '=', 0)->count();
         $total_all = $late + $ontime;
 
-        $totalQTYLate = $this->data->where('Late', '>', 0)->sum('Total_QTY');
-        $totalQTYOntime = $this->data->where('Late', '=', 0)->sum('Total_QTY');
+        $totalQTYLate = $this->data->where('LATE', '<', 0)->sum('TOTAL_QTY');
+        $totalQTYOntime = $this->data->where('LATE', '=', 0)->sum('TOTAL_QTY');
 
         $totalDoclate = $this->data
-        ->where('Late', '<', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('DocNum')      // Kelompokkan berdasarkan receipt_id
+        ->where('LATE', '<', 0)  // Filter data dengan Deadline > 0
+        ->groupBy('DOCNUM')      // Kelompokkan berdasarkan receipt_id
         ->count();                   // Hitung jumlah distinct receipt_id
 
         $totalDocOntime = $this->data
         ->where('Late', '=', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('DocNum')      // Kelompokkan berdasarkan receipt_id
+        ->groupBy('DOCNUM')      // Kelompokkan berdasarkan receipt_id
         ->count();  
         
         $total = $totalDoclate + $totalDocOntime;
@@ -60,13 +60,13 @@ class DeliveryPickingContoller extends Controller
             'success' => true,
             'message' => 'Statistik Data Delivery Picking',
             'data' => [
-                'late' => $late,
-                'ontime' => $ontime,
-                'total' => $total,
-                'total_QTY_late' => $totalQTYLate,
-                'total_QTY_ontime' => $totalQTYOntime,
-                'Total_Doc_late' => $totalDoclate,
-                'Total_Doc_Ontime' => $totalDocOntime,
+                'LATE' => $late,
+                'ONTIME' => $ontime,
+                'TOTAL' => $total,
+                'TOTAL_QTY_LATE' => $totalQTYLate,
+                'TOTAL_QTY_ONTIME' => $totalQTYOntime,
+                'TOTAL_DOC_LATE' => $totalDoclate,
+                'TOTAL_DOC_ONTIME' => $totalDocOntime,
             ],
         ]);
     }

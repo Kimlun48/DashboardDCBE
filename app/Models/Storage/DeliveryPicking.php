@@ -14,7 +14,7 @@ class DeliveryPicking extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getDeliveryPicking(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Delivery_Picking');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Delivery_Picking');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

@@ -18,7 +18,7 @@ class ItrOut extends Model
          DB::connection('DB_ILS')->statement('SET ANSI_NULLS ON');
          DB::connection('DB_ILS')->statement('SET ANSI_WARNINGS ON');
 
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_ITR_OUT');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_ITR_OUT');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   

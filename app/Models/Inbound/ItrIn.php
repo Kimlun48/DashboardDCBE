@@ -15,7 +15,7 @@ class ItrIn extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getItrIn(){
-        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV2_Detail_ITRIN');
+        $result = DB::connection ('DB_ILS')->select('EXEC DashboardV3_Detail_ITRIN');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
       //  $sorted = $collection->sortByDesc('late');   
