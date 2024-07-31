@@ -14,6 +14,8 @@ class ListPicking extends Model
     protected $table = 'LOCATION_INVENTORY';
 
     public static function getListPicking(){
+      DB::connection('DB_ILS')->statement('SET ANSI_NULLS ON');
+      DB::connection('DB_ILS')->statement('SET ANSI_WARNINGS ON');
         $result = DB::connection ('DB_ILS')->select('EXEC LAPORAN_WORK_PICKING');
         $collection = collect($result);
         //->sortByDesc('TYPE'); 
