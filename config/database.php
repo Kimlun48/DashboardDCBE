@@ -90,6 +90,11 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+             PDO::ATTR_TIMEOUT => 60,
+             PDO::SQLSRV_ATTR_QUERY_TIMEOUT => 60, // Tambahkan ini jika menggunakan driver sqlsrv
+            ],
+            'logging' => true, // Aktifkan logging untuk koneksi ini
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
