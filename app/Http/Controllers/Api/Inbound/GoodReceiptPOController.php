@@ -48,10 +48,11 @@ class GoodReceiptPOController extends Controller
        public function threemounthOntime()
        {
         $ontime = $this->data->where('CLOSE_DATE', 'closed')
-                         ->where('DAYS_TO_CLOSE', 0);
+                         ->where('DAYS_TO_CLOSE', 0)
+                         ->sortByDesc('DAYS_TO_CLOSE');
                         // ->sortByDesc('RECEIPT_DATE');
                         // ->orderBy('CLOSE_DATE', 'DESC');
-        return new GoodreceiptpoResource(true, 'List Data GRPO three mounth Ontime', $ontime);
+        return new GoodreceiptpoResource(true, 'List Data GRPO three mounth Ontime', $ontime->values()->all());
        }
 
        public function getStatistics()
