@@ -91,7 +91,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'options' => [
-            PDO::ATTR_TIMEOUT => 60, // Timeout dalam detik
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             ],
             // 'options' => [
             //  PDO::ATTR_TIMEOUT => 60,
@@ -113,6 +113,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
@@ -128,6 +131,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
@@ -143,6 +149,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
@@ -158,6 +167,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
@@ -172,6 +184,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
             
