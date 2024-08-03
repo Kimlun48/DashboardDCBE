@@ -90,6 +90,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+            PDO::ATTR_TIMEOUT => 60, // Timeout dalam detik
+            ],
             // 'options' => [
             //  PDO::ATTR_TIMEOUT => 60,
             //  PDO::SQLSRV_ATTR_QUERY_TIMEOUT => 60, // Tambahkan ini jika menggunakan driver sqlsrv
