@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\admin\User;
+use App\Models\admin\user;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -15,7 +15,7 @@ class InboundTabelSeeder extends Seeder
      */
     public function run(): void
     {
-        $regularUser = User::create([
+        $regularUser = user::create([
             'name'      => 'inbound',
             'email'     => 'inbound@gmail.com',
             'password'  => bcrypt('password')
