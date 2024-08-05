@@ -25,7 +25,7 @@ class ItrInController extends Controller
 
     public function late()
     {
-        $late = $this->data->where('LATE', '>', 0);
+        $late = $this->data->where('DEADLINE', '>', 0);
         return new LateItrInResource(true, 'List Data ITRIN', $late);
     }
 
