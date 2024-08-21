@@ -90,9 +90,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
@@ -105,7 +105,7 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-        'DB_EMAIL_SAP' => [
+        'DB_EMAIL' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_DB_EMAIL', 'localhost'),
@@ -116,9 +116,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
@@ -137,9 +137,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
@@ -158,9 +158,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
@@ -179,9 +179,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
@@ -199,9 +199,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'options' => [
-            PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
-            ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
             // 'options' => [
             // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
             // ],
