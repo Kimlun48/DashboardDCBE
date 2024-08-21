@@ -46,6 +46,31 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
                  return $request->user();
              });
+
+             Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
+             Route::get('/v2itrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'index']);
+             Route::get('/v2return', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'index']);
+             Route::get('/v2crossdock', [\App\Http\Controllers\Api\Inbound\CrossdockController::class, 'index']);
+             Route::get('/v2cashpicking', [\App\Http\Controllers\Api\Storage\CashPickingController::class, 'index']);  
+             Route::get('/v2deliverypicking', [\App\Http\Controllers\Api\Storage\DeliveryPickingContoller::class, 'index']); 
+             Route::get('/v2putaway', [\App\Http\Controllers\Api\Storage\PutawayContoller::class, 'index']);
+             Route::get('/v2replenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'index']);
+             Route::get('/v2listpicking', [\App\Http\Controllers\Api\Storage\ListPickingController::class,'index']);
+             Route::get('/v2arreserve', [\App\Http\Controllers\Api\Outbound\ArReserveController::class, 'index']);
+             Route::get('/v2itrout', [\App\Http\Controllers\Api\Outbound\ItrOutController::class, 'index']);
+             Route::get('/v2salesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'index']);
+
+
+             Route::get('/kendaraan', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'index']);
+             Route::get('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'show']);
+             Route::post('/kendaraan', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'store']);
+             Route::put('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'update']);
+             Route::delete('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'destroy']);
+           // Route::resource('/kendaraan', App\Http\Controllers\Api\Logistic\KendaraanController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
+
+            Route::get('/masterhour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'index']);
+            Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
+            Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
     
 
     
@@ -100,16 +125,16 @@ Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreControlle
 
 ##inbound
 ##itrin
-Route::get('/v2itrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'index']);
+
 Route::get('/v2lateitrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'late']);
 Route::get('/v2ontimeitrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'onTime']);
 Route::get('/v2statisticitrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'getStatistic']);
 ##crossdock
-Route::get('/v2crossdock', [\App\Http\Controllers\Api\Inbound\CrossdockController::class, 'index']);
+
 Route::get('/v2latecrossdock', [\App\Http\Controllers\Api\Inbound\CrossdockController::class, 'late']);
 Route::get('/v2statisticcrossdock', [\App\Http\Controllers\Api\Inbound\CrossdockController::class, 'getStatistic']);
 ##Po
-Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
+
 Route::get('/v2latepo' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'late']);
 Route::get('/v2statisticpo' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'getStatistic']);
 Route::get('/v2grpo', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'index']);
@@ -119,41 +144,50 @@ Route::get('/v2grpothreeontime', [\App\Http\Controllers\Api\Inbound\GoodReceiptP
 Route::get('/v2grpochart', [\App\Http\Controllers\Api\Inbound\GoodReceiptPOController::class, 'getStatistics']);
 
 ##return
-Route::get('/v2return', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'index']);
+
 Route::get('/v2latereturn', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'late']);
 Route::get('/v2statisticreturn', [\App\Http\Controllers\Api\Inbound\ReceiptReturnController::class, 'getStatistic']);
 
 ##storage
 ##cashpicking
-Route::get('/v2cashpicking', [\App\Http\Controllers\Api\Storage\CashPickingController::class, 'index']);    
+ 
 Route::get('/v2latecashpicking', [\App\Http\Controllers\Api\Storage\CashPickingController::class, 'late']);
 Route::get('/v2statisticcashpicking', [\App\Http\Controllers\Api\Storage\CashPickingController::class, 'getStatistic']);
 ##deliverypicking
-Route::get('/v2deliverypicking', [\App\Http\Controllers\Api\Storage\DeliveryPickingContoller::class, 'index']);
+
 Route::get('/v2latedeliverypicking', [\App\Http\Controllers\Api\Storage\DeliveryPickingContoller::class, 'late']);
 Route::get('/v2statisticdeliverypicking', [\App\Http\Controllers\Api\Storage\DeliveryPickingContoller::class, 'getStatistic']);
 ##putaway
-Route::get('/v2putaway', [\App\Http\Controllers\Api\Storage\PutawayContoller::class, 'index']);
+
 Route::get('/v2lateputaway', [\App\Http\Controllers\Api\Storage\PutawayContoller::class, 'late']);
 Route::get('/v2statisticputaway', [\App\Http\Controllers\Api\Storage\PutawayContoller::class, 'getStatistic']);
 ##replenishment
-Route::get('/v2replenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'index']);
+
 Route::get('/v2latereplenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'late']);
 Route::get('/v2statisticreplenishment', [\App\Http\Controllers\Api\Storage\ReplenishmentContoller::class, 'getStatistic']);
 #listpicking
-Route::get('/v2listpicking', [\App\Http\Controllers\Api\Storage\ListPickingController::class,'index']);
+
 
 ##outbound
 #arreserve
-Route::get('/v2arreserve', [\App\Http\Controllers\Api\Outbound\ArReserveController::class, 'index']);
+
 Route::get('/v2latearreserve', [\App\Http\Controllers\Api\Outbound\ArReserveController::class, 'late']);
 Route::get('/v2statisticarreserve', [\App\Http\Controllers\Api\Outbound\ArReserveController::class, 'getStatistic']);
 ##itrout
-Route::get('/v2itrout', [\App\Http\Controllers\Api\Outbound\ItrOutController::class, 'index']);
+
 Route::get('/v2lateitrout', [\App\Http\Controllers\Api\Outbound\ItrOutController::class, 'late']);
 Route::get('/v2statisticitrout', [\App\Http\Controllers\Api\Outbound\ItrOutController::class, 'getStatistic']);
 ##salesorder
-Route::get('/v2salesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'index']);
+
 Route::get('/v2latesalesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'late']);
 Route::get('/v2statisticsalesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'getStatistic']);
+
+Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
+Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
+
+
+
+
+
+//Route::resource('/kendaraan', [\App\Http\Controllers\Api\Logistic\KendaraanController::class]);
 
