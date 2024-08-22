@@ -10,6 +10,8 @@ class MasterHour extends Model
     use HasFactory;
     protected $connection = 'DB_EMAIL';
     protected $table = 'SR_MasterHour';
+    protected $primaryKey = 'id'; 
+    protected $keyType = 'int';
 
     protected $fillable = ([
         'id', 
@@ -20,4 +22,5 @@ class MasterHour extends Model
         'slot',
         'jenis_jam'
     ]);
+    public $timestamps = false; 
 }
