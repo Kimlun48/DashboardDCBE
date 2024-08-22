@@ -11,7 +11,7 @@ class Kendaraan extends Model
     protected $connection = 'DB_EMAIL';
     protected $table = 'Logistic_Master_Kendaraan';
     protected $primaryKey = 'id_kendaraan'; 
-    protected $keyType = 'string';
+    protected $keyType = 'int';
 
     protected $fillable = ([
         'id_kendaraan',
