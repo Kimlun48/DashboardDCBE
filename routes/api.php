@@ -68,6 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
              Route::delete('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'destroy']);
            // Route::resource('/kendaraan', App\Http\Controllers\Api\Logistic\KendaraanController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
 
+            Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
+            Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
             Route::get('/masterhour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'index']);
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
@@ -182,8 +184,7 @@ Route::get('/v2statisticitrout', [\App\Http\Controllers\Api\Outbound\ItrOutContr
 Route::get('/v2latesalesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'late']);
 Route::get('/v2statisticsalesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'getStatistic']);
 
-Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
-Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
+
 
 
 
