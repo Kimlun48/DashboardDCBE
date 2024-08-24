@@ -10,7 +10,8 @@ class TransaksiRequest extends Model
     use HasFactory;
     protected $connection = 'DB_EMAIL';
     protected $table = 'Logistic_Transaksi_Req';
-
+    protected $primaryKey = 'id_jadwal'; 
+    protected $keyType = 'int';
     protected $fillable = ([
         'id_req', 
         'vendor_code', 
@@ -23,4 +24,5 @@ class TransaksiRequest extends Model
         'nama_kendaraan'
 
     ]);
+    public $timestamps = false; 
 }
