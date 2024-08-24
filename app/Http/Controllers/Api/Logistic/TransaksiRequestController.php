@@ -25,4 +25,19 @@ class TransaksiRequestController extends Controller
             ], 500);
         }
     }
+
+    public function show ($id_jadwal) 
+    {
+        $transaksirequest = TransaksiRequest::find($id_jadwal);
+        if ($transaksirequest){
+            return response()->json([
+                'success' => true,
+                'data' => $transaksirequest,
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'data not found',
+        ], 404);
+    }
 }

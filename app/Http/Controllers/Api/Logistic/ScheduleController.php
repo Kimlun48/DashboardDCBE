@@ -157,8 +157,9 @@ class ScheduleController extends Controller
     $masterHours = MasterHour::where('jenis_jam', $jenis_jam)->get();
 
     $existingDays = [];
+    $available = 'AVAILABLE';
 
-    DB::transaction(function () use ($masterHours, $year, $month, $totalDays, $slot, &$existingDays) {
+    DB::transaction(function () use ($masterHours, $year, $month, $totalDays, $slot, $available,  &$existingDays) {
         for ($day = 1; $day <= $totalDays; $day++) {
             $hari = Carbon::createFromDate($year, $month, $day)->format('Y-m-d');
 
@@ -188,6 +189,7 @@ class ScheduleController extends Controller
                         'jenis_aktivitas' => $hour->jenis_aktivitas,
                         'slot' => $slot,
                         'available_slot' => $slot,
+                        'status' => $available,
                     ]);
                 }
             }

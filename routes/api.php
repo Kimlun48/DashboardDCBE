@@ -76,6 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
             Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
             Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
+            Route::get('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
     
