@@ -158,16 +158,14 @@ class ScheduleController extends Controller
 
     $existingDays = [];
     $available = 'AVAILABLE';
+    $off = 'OFF';
 
-    DB::transaction(function () use ($masterHours, $year, $month, $totalDays, $slot, $available,  &$existingDays) {
+    DB::transaction(function () use ($masterHours, $year, $month, $totalDays, $slot, $available, $off, &$existingDays) {
         for ($day = 1; $day <= $totalDays; $day++) {
             $hari = Carbon::createFromDate($year, $month, $day)->format('Y-m-d');
 
             foreach ($masterHours as $hour) {
                 $existingSchedule = Schedule::where('hari', $hari)
-                    // ->where('mulai', $hour->mulai)
-                    // ->where('akhir', $hour->akhir)
-                    // ->where('jenis_aktivitas', $hour->jenis_aktivitas)
                     ->exists();
 
                 if ($existingSchedule) {
@@ -182,32 +180,35 @@ class ScheduleController extends Controller
                 $hari = Carbon::createFromDate($year, $month, $day)->format('Y-m-d');
 
                 foreach ($masterHours as $hour) {
+                    $status = $hour->jenis_aktivitas === 'ON LOAD' ? $available : $off;
+
                     Schedule::create([
                         'hari' => $hari,
                         'mulai' => $hour->mulai,
                         'akhir' => $hour->akhir,
                         'jenis_aktivitas' => $hour->jenis_aktivitas,
-                        'slot' => $slot,
-                        'available_slot' => $slot,
-                        'status' => $available,
+                        'slot' => $status === $available ? $slot : 0,  // Set slot ke 0 jika status off
+                        'available_slot' => $status === $available ? $slot : 0,  // Set available_slot ke 0 jika status off
+                        'status' => $status,
                     ]);
                 }
             }
 
+            // Menjaga status schedule yang tidak 'ON LOAD'
             Schedule::where('jenis_aktivitas', '!=', 'ON LOAD')
                 ->orderBy('id', 'desc')
-                ->update(['slot' => 0, 'available_slot' => 0]);
+                ->update(['slot' => 0, 'available_slot' => 0, 'status' => $off]);
         }
     });
 
     if (!empty($existingDays)) {
         return response()->json([
             'message' => 'Generate Schedule Failed, Schedule Already Exists',
-            // 'existing_days' => $existingDays,
         ], 409);
     }
 
     return response()->json(['message' => 'Generate Schedule Berhasil'], 200);
 }
+
 
 }
