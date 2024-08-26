@@ -21,8 +21,9 @@ class TransaksiRequest extends Model
         'id_kendaraan',
         'surat_jalan',
         'slot_req',
-        'nama_kendaraan'
+        'nama_kendaraan',
+        'status'
 
     ]);
-    public $timestamps = false; 
+    // public $timestamps = false; 
 }
