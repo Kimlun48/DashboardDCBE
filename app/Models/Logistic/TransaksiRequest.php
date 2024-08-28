@@ -4,6 +4,7 @@ namespace App\Models\Logistic;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class TransaksiRequest extends Model
 {
@@ -22,8 +23,33 @@ class TransaksiRequest extends Model
         'surat_jalan',
         'slot_req',
         'nama_kendaraan',
-        'status'
+        'status',
+        'date_arrived',
+        'date_completed'
 
     ]);
     // public $timestamps = false; 
+
+    // Accessor for created_at
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->setTimezone('Asia/Jakarta');
+    // }
+
+    // // Accessor for updated_at
+    // public function getUpdatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->setTimezone('Asia/Jakarta');
+    // }
+//     public function getUpdatedAtAttribute()
+// {
+//     return \Carbon\Carbon::parse($this->attributes['updated_at'])
+//        ->diffForHumans();
+// }
+
+// public function getCreatedAtAttribute()
+// {
+//     return \Carbon\Carbon::parse($this->attributes['created_at'])
+//        ->format('d, M Y H:i');
+// }
 }
