@@ -8,11 +8,20 @@ use App\Models\admin\user;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        
         $request->validate([
             // 'email' => 'required|email',
             'name' => 'required',
@@ -28,7 +37,7 @@ class LoginController extends Controller
             ], 404);
         }
 
-        $accessTokenName = env('ACCESS_TOKEN_NAME');
+        $accessTokenName = env('ACCESS_TOKEN_NAME', 'DashboardDC');
         $accessToken = $user->createToken($accessTokenName)->plainTextToken;
         $refreshToken = Str::random(60);
 
