@@ -25,7 +25,8 @@ class TransaksiRequest extends Model
         'nama_kendaraan',
         'status',
         'date_arrived',
-        'date_completed'
+        'date_completed',
+        'date_loading_goods'
 
     ]);
     // public $timestamps = false; 
