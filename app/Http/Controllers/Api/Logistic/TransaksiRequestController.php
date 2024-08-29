@@ -81,7 +81,8 @@ class TransaksiRequestController extends Controller
                 'sopir' => $request->sopir,
                 'status' => $request->status,
                 'date_arrived' => $request->date_arrived,
-                'date_completed' => $request->date_completed
+                'date_completed' => $request->date_completed,
+                'date_loading_goods' => $request->date_loading_goods
             ]);
     
             // Kembalikan respons sukses
