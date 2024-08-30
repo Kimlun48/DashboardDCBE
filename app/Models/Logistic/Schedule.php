@@ -11,7 +11,7 @@ class Schedule extends Model
     protected $connection = 'DB_EMAIL';
     protected $table = 'SR_AvailableSchedule';
 
-    protected $fillable = ([
+    protected $fillable = [
         'id', 
         'hari', 
         'mulai', 
@@ -20,6 +20,11 @@ class Schedule extends Model
         'slot',
         'available_slot',
         'status'
-    ]);
+    ];
     public $timestamps = false;
+
+    public function transaksiRequest()
+    {
+        return $this->hasMany(TransaksiRequest::class, 'id_jadwal', 'id');
+    }
 }
