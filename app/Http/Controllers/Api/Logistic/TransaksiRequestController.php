@@ -14,16 +14,8 @@ class TransaksiRequestController extends Controller
     public function index()
     {
         try {
-            $transaksirequests = TransaksiRequest::all()->map(function ($transaksi) {
-                // Pastikan created_at dan updated_at tidak null sebelum memformat
-                // if ($transaksi->created_at) {
-                //     $transaksi->created_at = Carbon::parse($transaksi->created_at)->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s');
-                // }
-                // if ($transaksi->updated_at) {
-                //     $transaksi->updated_at = Carbon::parse($transaksi->updated_at)->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s');
-                // }
-                return $transaksi;
-            });
+            $transaksirequests = TransaksiRequest::with('schedule')->get();
+               
     
             return response()->json([
                 'success' => true,
@@ -41,7 +33,7 @@ class TransaksiRequestController extends Controller
     public function show ($id_jadwal) 
     {
         //$transaksirequest = TransaksiRequest::find($id_jadwal);
-        $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->get();
+        $transaksirequests = TransaksiRequest::with('schedule')->where('id_jadwal', $id_jadwal)->get();
         if ($transaksirequests){
             return response()->json([
                 'success' => true,
