@@ -46,7 +46,7 @@ class TransaksiRequestController extends Controller
         ], 404);
     }
 
-    public function update(Request $request, $id_req)
+    public function update(Request $request, $id_jadwal)
     {
         
         $validator = Validator::make($request->all(), [
@@ -64,7 +64,7 @@ class TransaksiRequestController extends Controller
     
         try {
            
-            $transaksirequests = TransaksiRequest::findOrFail($id_req);
+            $transaksirequests = TransaksiRequest::findOrFail($id_jadwal);
             $transaksirequests->update([
                 'surat_jalan' => $request->surat_jalan,
                 'nama_kendaraan' => $request->nama_kendaraan,
@@ -99,6 +99,66 @@ class TransaksiRequestController extends Controller
             ], 500);
         }
     }
+
+    public function updatescanqrCode(Request $request, $id_jadwal) {
+        
+        // $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
+
+        // if (!$transaksirequests) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Transaksi not found',
+        //     ], 404);
+        // } 
+    
+        
+        // $status = $request->input('status');
+    
+        
+        // if (!in_array($status, ['ARRIVED', 'COMPLETED', 'LOADING'])) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Invalid status',
+        //     ], 400);
+        // }
+    
+        
+        // $transaksirequests->update([
+        //     'status' => $status,
+        //     'date_arrived' => $status === 'ARRIVED' ? now() : $transaksirequests->date_arrived,
+        //     'date_completed' => $status === 'COMPLETED' ? now() : $transaksirequests->date_completed,
+        //     'date_loading_goods' => $status === 'LOADING' ? now() : $transaksirequests->date_loading_goods,
+        // ]);
+    
+        
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Update data success',
+        //     'data' => $transaksirequests
+        // ], 200);
+    $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
+
+    if (!$transaksirequests) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Transaksi not found',
+        ], 404);
+    } 
+ 
+    $transaksirequests->update([
+        'status' => 'ARRIVED',
+        'date_arrived' => now(),
+    ]);
+ 
+    return response()->json([
+        'success' => true,
+        'message' => 'Update data success',
+        'data' => $transaksirequests
+    ], 200);
+    }
+    
+    
+    
 
 //     public function index()
 //     {
