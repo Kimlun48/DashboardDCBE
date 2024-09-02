@@ -136,18 +136,28 @@ class TransaksiRequestController extends Controller
         //     'message' => 'Update data success',
         //     'data' => $transaksirequests
         // ], 200);
+
+        // $validator = Validator::make($request->all(), [
+        //     'id_jadwal' => 'required',
+           
+        // ]);
+    
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->errors()], 422);
+        // }
     $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
 
     if (!$transaksirequests) {
         return response()->json([
             'success' => false,
-            'message' => 'Transaksi not found',
+            'message' => 'ID Transaksi not found',
         ], 404);
     } 
  
     $transaksirequests->update([
         'status' => 'ARRIVED',
-        'date_arrived' => now(),
+        'date_arrived' => $request->date_arrived,
+        // 'date_arrived' => now(),
     ]);
  
     return response()->json([
