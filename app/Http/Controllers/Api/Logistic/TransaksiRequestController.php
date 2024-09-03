@@ -101,6 +101,13 @@ class TransaksiRequestController extends Controller
     }
 
     public function updatescanqrCode(Request $request, $id_jadwal) {
+        $validator = Validator::make($request->all(), [
+            'id_jadwal' => 'required|int',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
 
