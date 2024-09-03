@@ -14,7 +14,7 @@ class TransaksiRequestController extends Controller
     public function index()
     {
         try {
-            $transaksirequests = TransaksiRequest::with('schedule')->get();
+            $transaksirequests = TransaksiRequest::with('schedule')->orderBy('updated_at', 'desc')->get();
                
     
             return response()->json([
@@ -107,7 +107,7 @@ class TransaksiRequestController extends Controller
     if (!$transaksirequests) {
         return response()->json([
             'success' => false,
-            'message' => 'ID Transaksi not found',
+            'message' => 'ID Boking not found',
         ], 404);
     } 
 
