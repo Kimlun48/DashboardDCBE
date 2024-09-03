@@ -101,7 +101,6 @@ class TransaksiRequestController extends Controller
     }
 
     public function updatescanqrCode(Request $request, $id_jadwal) {
-        
 
         $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
 
@@ -111,6 +110,13 @@ class TransaksiRequestController extends Controller
             'message' => 'ID Transaksi not found',
         ], 404);
     } 
+
+    if ($transaksirequests->date_arrived) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Date Arrived is already set and cannot be updated',
+        ], 400);
+    }
  
     $transaksirequests->update([
         'status' => 'ARRIVED',
