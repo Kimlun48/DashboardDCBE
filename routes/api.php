@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\Admin\AuthController;
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [LoginController::class, 'register']);
 
+
 // Rute dengan middleware auth:sanctum
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
@@ -78,62 +79,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
             Route::get('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);
             Route::put('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'update']);
-            Route::put('/transaksireq_qr/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
+            
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
     
-
-    
 });
 
-
-
-
-
-// //posts
-
-
-// //ils
-// Route::get('/ils', [\App\Http\Controllers\Api\IlsController::class, 'index']);
-// Route::get('/ilssp', [\App\Http\Controllers\Api\IlsController::class, 'getIlsPs']);
-// Route::get('/chart', [\App\Http\Controllers\Api\IlsController::class, 'getStatistics']);
-// Route::get('/late', [\App\Http\Controllers\Api\IlsController::class, 'getLate']);
-// Route::get('/unlate', [\App\Http\Controllers\Api\IlsController::class, 'getUnLate']);
-// //alertcash
-// Route::get('/alertcash', [\App\Http\Controllers\Api\AlertCashController::class, 'index']);
-// //receipt inbound
-// Route::get('/putaway', [\App\Http\Controllers\Api\PutAwayController::class, 'index']);
-// Route::get('/chartpa', [App\Http\Controllers\Api\PutAwayController::class, 'getStatistic']);
-// Route::get('/palate', [\App\Http\Controllers\Api\PutAwayController::class, 'getLate']);
-// Route::get('/paunlate', [\App\Http\Controllers\Api\PutAwayController::class, 'getUnLate']);
-// //delivstock
-// Route::get('/indelivestock', [\App\Http\Controllers\Api\IndelivstockController::class, 'index']);
-// Route::get('/indelivestocklate', [\App\Http\Controllers\Api\IndelivstockController::class, 'getlate']);
-// Route::get('/indelivestockunlate', [\App\Http\Controllers\Api\IndelivstockController::class, 'getunlate']);
-// Route::get('/chartds', [\App\Http\Controllers\Api\IndelivstockController::class, 'getStatistic']);
-
-// Route::get('/cashputstorage', [\App\Http\Controllers\Api\CashPutStorageController::class, 'index']);
-// Route::get('/cpslate', [\App\Http\Controllers\Api\CashPutStorageController::class, 'GetLate']);
-// Route::get('/cpsunlate', [\App\Http\Controllers\Api\CashPutStorageController::class, 'GetUnLate']);
-// Route::get('/chartcps', [\App\Http\Controllers\Api\CashPutStorageController::class, 'getStatistics']);
-
-// Route::get('/cpsv1', [App\Http\Controllers\Api\Cpsv2Controller::class, 'index']);
-
-// Route::get('/alertcasstorage', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'index']);
-// Route::get('/alertcasstoragelate', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getLate']);
-// Route::get('/alertcasstorageunlate', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getUnLate']);
-// Route::get('/chartacs', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getStatistics']);
-
-// Route::get('/replenishment', [\App\Http\Controllers\Api\ReplanishmentController::class, 'index']);
-// Route::get('/replenishmentlate', [\App\Http\Controllers\Api\ReplanishmentController::class, 'getLate']);
-// Route::get('/replenishmentunlate', [\App\Http\Controllers\Api\ReplanishmentController::class, 'getUnlate']);
-// Route::get('/chartreplenishment', [\App\Http\Controllers\Api\ReplanishmentController::class, 'GetStatistic']);
-
-
-
-
+Route::middleware([])->put('/transaksireq_qr/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
 Route::get('/dashinbound', [\App\Http\Controllers\Api\DashInboundController::class, 'index']);
-
 Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreController::class, 'index']);
 
 ##inbound
@@ -198,7 +151,44 @@ Route::get('/v2statisticsalesorder', [\App\Http\Controllers\Api\Outbound\SalesOr
 
 
 
+// //posts
 
+
+// //ils
+// Route::get('/ils', [\App\Http\Controllers\Api\IlsController::class, 'index']);
+// Route::get('/ilssp', [\App\Http\Controllers\Api\IlsController::class, 'getIlsPs']);
+// Route::get('/chart', [\App\Http\Controllers\Api\IlsController::class, 'getStatistics']);
+// Route::get('/late', [\App\Http\Controllers\Api\IlsController::class, 'getLate']);
+// Route::get('/unlate', [\App\Http\Controllers\Api\IlsController::class, 'getUnLate']);
+// //alertcash
+// Route::get('/alertcash', [\App\Http\Controllers\Api\AlertCashController::class, 'index']);
+// //receipt inbound
+// Route::get('/putaway', [\App\Http\Controllers\Api\PutAwayController::class, 'index']);
+// Route::get('/chartpa', [App\Http\Controllers\Api\PutAwayController::class, 'getStatistic']);
+// Route::get('/palate', [\App\Http\Controllers\Api\PutAwayController::class, 'getLate']);
+// Route::get('/paunlate', [\App\Http\Controllers\Api\PutAwayController::class, 'getUnLate']);
+// //delivstock
+// Route::get('/indelivestock', [\App\Http\Controllers\Api\IndelivstockController::class, 'index']);
+// Route::get('/indelivestocklate', [\App\Http\Controllers\Api\IndelivstockController::class, 'getlate']);
+// Route::get('/indelivestockunlate', [\App\Http\Controllers\Api\IndelivstockController::class, 'getunlate']);
+// Route::get('/chartds', [\App\Http\Controllers\Api\IndelivstockController::class, 'getStatistic']);
+
+// Route::get('/cashputstorage', [\App\Http\Controllers\Api\CashPutStorageController::class, 'index']);
+// Route::get('/cpslate', [\App\Http\Controllers\Api\CashPutStorageController::class, 'GetLate']);
+// Route::get('/cpsunlate', [\App\Http\Controllers\Api\CashPutStorageController::class, 'GetUnLate']);
+// Route::get('/chartcps', [\App\Http\Controllers\Api\CashPutStorageController::class, 'getStatistics']);
+
+// Route::get('/cpsv1', [App\Http\Controllers\Api\Cpsv2Controller::class, 'index']);
+
+// Route::get('/alertcasstorage', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'index']);
+// Route::get('/alertcasstoragelate', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getLate']);
+// Route::get('/alertcasstorageunlate', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getUnLate']);
+// Route::get('/chartacs', [\App\Http\Controllers\Api\AlertCashStorageController::class, 'getStatistics']);
+
+// Route::get('/replenishment', [\App\Http\Controllers\Api\ReplanishmentController::class, 'index']);
+// Route::get('/replenishmentlate', [\App\Http\Controllers\Api\ReplanishmentController::class, 'getLate']);
+// Route::get('/replenishmentunlate', [\App\Http\Controllers\Api\ReplanishmentController::class, 'getUnlate']);
+// Route::get('/chartreplenishment', [\App\Http\Controllers\Api\ReplanishmentController::class, 'GetStatistic']);
 
 
 //Route::resource('/kendaraan', [\App\Http\Controllers\Api\Logistic\KendaraanController::class]);
