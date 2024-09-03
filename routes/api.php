@@ -84,7 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
     
 });
-
+Route::get('/transaksireq_qr', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
 Route::middleware([])->put('/transaksireq_qr/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
 Route::get('/dashinbound', [\App\Http\Controllers\Api\DashInboundController::class, 'index']);
 Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreController::class, 'index']);
