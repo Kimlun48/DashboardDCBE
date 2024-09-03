@@ -101,6 +101,28 @@ class TransaksiRequestController extends Controller
     }
 
     public function updatescanqrCode(Request $request, $id_jadwal) {
+
+        $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
+
+    if (!$transaksirequests) {
+        return response()->json([
+            'success' => false,
+            'message' => 'ID Transaksi not found',
+        ], 404);
+    } 
+ 
+    $transaksirequests->update([
+        'status' => 'ARRIVED',
+        'date_arrived' => $request->date_arrived,
+        // 'date_arrived' => now(),
+    ]);
+ 
+    return response()->json([
+        'success' => true,
+        'message' => 'Update data success',
+        'data' => $transaksirequests
+    ], 200);
+    }
         
         // $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
 
@@ -145,142 +167,8 @@ class TransaksiRequestController extends Controller
         // if ($validator->fails()) {
         //     return response()->json(['errors' => $validator->errors()], 422);
         // }
-    $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
-
-    if (!$transaksirequests) {
-        return response()->json([
-            'success' => false,
-            'message' => 'ID Transaksi not found',
-        ], 404);
-    } 
- 
-    $transaksirequests->update([
-        'status' => 'ARRIVED',
-        'date_arrived' => $request->date_arrived,
-        // 'date_arrived' => now(),
-    ]);
- 
-    return response()->json([
-        'success' => true,
-        'message' => 'Update data success',
-        'data' => $transaksirequests
-    ], 200);
-    }
-    
-    
     
 
-//     public function index()
-//     {
-//         try {
-//             $transaksirequests = TransaksiRequest::all()->map(function ($transaksi) {
-//                 // Pastikan created_at dan updated_at tidak null sebelum memformat
-//                 if ($transaksi->created_at) {
-//                     $transaksi->created_at = Carbon::parse($transaksi->created_at)->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s');
-//                 }
-//                 if ($transaksi->updated_at) {
-//                     $transaksi->updated_at = Carbon::parse($transaksi->updated_at)->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s');
-//                 }
-//                 return $transaksi;
-//             });
-    
-//             return response()->json([
-//                 'success' => true,
-//                 'data' => $transaksirequests,
-//             ], 200);
-//         } catch (\Exception $e) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Failed to retrieve data',
-//                 'error' => $e->getMessage()
-//             ], 500);
-//         }
-//     }
-
-//     public function show($id_jadwal)
-// {
-//     $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->get();
-
-//     if ($transaksirequests->isEmpty()) {
-//         return response()->json([
-//             'success' => false,
-//             'message' => 'Data not found',
-//         ], 404);
-//     }
-
-//     // Iterasi melalui setiap transaksirequest
-//     $transaksirequests->transform(function ($transaksirequest) {
-//         if ($transaksirequest->created_at) {
-//             $transaksirequest->created_at = Carbon::parse($transaksirequest->created_at)
-//                 ->setTimezone('Asia/Jakarta')
-//                 ->format('d-m-Y H:i:s');
-//         }
-
-//         if ($transaksirequest->updated_at) {
-//             $transaksirequest->updated_at = Carbon::parse($transaksirequest->updated_at)
-//                 ->setTimezone('Asia/Jakarta')
-//                 ->format('d-m-Y H:i:s');
-//         }
-
-//         return $transaksirequest;
-//     });
-
-//     return response()->json([
-//         'success' => true,
-//         'data' => $transaksirequests,
-//     ], 200);
-// }
 
 
-//     public function update(Request $request, $id_req)
-//     {
-        
-//         $validator = Validator::make($request->all(), [
-//             'surat_jalan' => 'required|string',
-//             'nama_kendaraan' => 'required|string',
-//             'nama_vendor' => 'required|string',
-//             'slot_req' => 'required|int',
-//             'sopir' => 'required|string',
-//             'status' => 'required|string',
-//         ]);
-    
-//         if ($validator->fails()) {
-//             return response()->json(['errors' => $validator->errors()], 422);
-//         }
-    
-//         try {
-           
-//             $transaksirequests = TransaksiRequest::findOrFail($id_req);
-//             $transaksirequests->update([
-//                 'surat_jalan' => $request->surat_jalan,
-//                 'nama_kendaraan' => $request->nama_kendaraan,
-//                 'nama_vendor' => $request->nama_vendor,
-//                 'slot_req' => $request->slot_req,
-//                 'sopir' => $request->sopir,
-//                 'status' => $request->status,
-//                 'updated_at' => Carbon::now('Asia/Jakarta') // Set 'updated_at' ke waktu saat ini dengan timezone Asia/Jakarta
-//             ]);
-    
-//             // Kembalikan respons sukses
-//             return response()->json([
-//                 'success' => true,
-//                 'message' => 'Update data success',
-//                 'data' => $transaksirequests
-//             ], 200);
-    
-//         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Master hour not found',
-//                 'errors' => $e->getMessage()
-//             ], 404);
-    
-//         } catch (\Exception $e) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Failed to update data',
-//                 'errors' => $e->getMessage()
-//             ], 500);
-//         }
-//     }
 }
