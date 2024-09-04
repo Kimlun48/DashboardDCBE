@@ -120,7 +120,7 @@ class TransaksiRequestController extends Controller
  
     $transaksirequests->update([
         'status' => 'ONLOAD',
-        'date_arrived' => $request->date_loading_goods,
+        'date_loading_goods' => $request->date_loading_goods,
         // 'date_arrived' => now(),
     ]);
  
