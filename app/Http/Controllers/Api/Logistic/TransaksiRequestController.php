@@ -100,6 +100,37 @@ class TransaksiRequestController extends Controller
         }
     }
 
+    public function updatescanqrCodeInbound(Request $request, $id_jadwal) {
+
+        $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
+
+    if (!$transaksirequests) {
+        return response()->json([
+            'success' => false,
+            'message' => 'ID Boking not found',
+        ], 404);
+    } 
+
+    if ($transaksirequests->date_loading_goods) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Date Arrived is already set and cannot be updated',
+        ], 400);
+    }
+ 
+    $transaksirequests->update([
+        'status' => 'ARRIVED',
+        'date_arrived' => $request->date_loading_goods,
+        // 'date_arrived' => now(),
+    ]);
+ 
+    return response()->json([
+        'success' => true,
+        'message' => 'Update data success',
+        'data' => $transaksirequests
+    ], 200);
+    }
+
     public function updatescanqrCode(Request $request, $id_jadwal) {
 
         $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
