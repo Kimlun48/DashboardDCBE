@@ -121,7 +121,7 @@ class TransaksiRequestController extends Controller
     $transaksirequests->update([
         'status' => 'ONLOAD',
         'date_loading_goods' => $request->date_loading_goods,
-        // 'date_arrived' => now(),
+        'date_arrived' => now(),
     ]);
  
     return response()->json([
@@ -152,7 +152,7 @@ class TransaksiRequestController extends Controller
     $transaksirequests->update([
         'status' => 'ARRIVED',
         'date_arrived' => $request->date_arrived,
-        // 'date_arrived' => now(),
+         'date_arrived' => now(),
     ]);
  
     return response()->json([
@@ -161,6 +161,78 @@ class TransaksiRequestController extends Controller
         'data' => $transaksirequests
     ], 200);
     }
+
+
+    public function updateStatusScan(Request $request, $id_jadwal) {
+        $transaksiRequest = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
+        
+        if (!$transaksiRequest) {
+            return response()->json([
+                'success' => false,
+                'message' => 'ID Boking not found',
+            ], 404);
+        }
+        
+        $newStatus = $request->status;
+        $currentDateTime = $request->currentDateTime; 
+        
+        switch($newStatus) {
+            case 'ARRIVED':
+                if ($transaksiRequest->status !== null) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Barang sudah di-arrived, tidak bisa diubah!',
+                    ], 400);
+                }
+    
+                $transaksiRequest->update([
+                    'status' => 'ARRIVED',
+                    'date_arrived' => $currentDateTime,
+                ]);
+                break;
+        
+            case 'ONLOAD':
+                if ($transaksiRequest->status !== 'ARRIVED') {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Barang harus berstatus ARRIVED sebelum ONLOAD!',
+                    ], 400);
+                }
+    
+                $transaksiRequest->update([
+                    'status' => 'ONLOAD',
+                    'date_loading_goods' => $currentDateTime,
+                ]);
+                break;
+        
+            case 'FINISH':
+                if ($transaksiRequest->status !== 'ONLOAD') {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Barang harus berstatus ONLOAD sebelum FINISH!',
+                    ], 400);
+                }
+    
+                $transaksiRequest->update([
+                    'status' => 'FINISH',
+                    'date_completed' => $currentDateTime,
+                ]);
+                break;
+        
+            default:
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Status tidak valid!',
+                ], 400);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully!',
+            'data' => $transaksiRequest
+        ], 200);
+    }
+    
         
         // $transaksirequests = TransaksiRequest::where('id_jadwal', $id_jadwal)->first();
 

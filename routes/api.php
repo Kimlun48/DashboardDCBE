@@ -80,6 +80,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);
             Route::put('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'update']);
             Route::put('/transaksireq_qr_inbound/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCodeInbound']);
+            Route::put('/transaksireq_qr_all/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updateStatusScan']);
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
     
