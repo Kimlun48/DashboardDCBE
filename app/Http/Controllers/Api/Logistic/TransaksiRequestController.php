@@ -32,7 +32,7 @@ class TransaksiRequestController extends Controller
 
     public function show ($id_jadwal) 
     {
-        //$transaksirequest = TransaksiRequest::find($id_jadwal);
+        //$transaksirequest = TransaksiRequest::find($id_jadwal);//
         $transaksirequests = TransaksiRequest::with('schedule')->where('id_jadwal', $id_jadwal)->get();
         if ($transaksirequests){
             return response()->json([
