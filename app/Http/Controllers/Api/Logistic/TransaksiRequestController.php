@@ -181,7 +181,7 @@ class TransaksiRequestController extends Controller
                 if ($transaksiRequest->status !== null) {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Barang sudah di-arrived, tidak bisa diubah!',
+                        'message' => 'Please scan on vendor',
                     ], 400);
                 }
     
@@ -195,7 +195,7 @@ class TransaksiRequestController extends Controller
                 if ($transaksiRequest->status !== 'ARRIVED') {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Barang harus berstatus ARRIVED sebelum ONLOAD!',
+                        'message' => 'Arr',
                     ], 400);
                 }
     
@@ -209,7 +209,7 @@ class TransaksiRequestController extends Controller
                 if ($transaksiRequest->status !== 'ONLOAD') {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Barang harus berstatus ONLOAD sebelum FINISH!',
+                        'message' => 'Onl',
                     ], 400);
                 }
     
