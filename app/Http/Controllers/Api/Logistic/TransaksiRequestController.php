@@ -107,7 +107,7 @@ class TransaksiRequestController extends Controller
     if (!$transaksirequests) {
         return response()->json([
             'success' => false,
-            'message' => 'ID Booking not found',
+            'message' => 'Booking ID not found',
         ], 404);
     } 
 
@@ -138,7 +138,7 @@ class TransaksiRequestController extends Controller
     if (!$transaksirequests) {
         return response()->json([
             'success' => false,
-            'message' => 'ID Booking not found',
+            'message' => 'Booking ID not found',
         ], 404);
     } 
 
@@ -169,7 +169,7 @@ class TransaksiRequestController extends Controller
         if (!$transaksiRequest) {
             return response()->json([
                 'success' => false,
-                'message' => 'ID Booking not found',
+                'message' => 'Booking ID not found',
             ], 404);
         }
         
