@@ -22,8 +22,8 @@ Route::get('/test-mssql', function () {
         // Coba melakukan koneksi ke database
       //  DB::connection('DB_WMS')->getPdo();
         //DB::connection('DB_EMAIL_SAP')->getPdo();
-       // DB::connection('DB_RKM_LIVE_2')->getPdo();
-        DB::connection('DB_ILS')->getPdo();
+       DB::connection('DB_RKM_LIVE_2')->getPdo();
+        //DB::connection('DB_ILS')->getPdo();
         
 
         

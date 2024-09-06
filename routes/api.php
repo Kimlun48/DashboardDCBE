@@ -194,3 +194,5 @@ Route::get('/v2statisticsalesorder', [\App\Http\Controllers\Api\Outbound\SalesOr
 
 //Route::resource('/kendaraan', [\App\Http\Controllers\Api\Logistic\KendaraanController::class]);
 
+Route::get('/grpokaliurangdetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetail']);
+Route::get('/grpokaliurangheader', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeader']);
