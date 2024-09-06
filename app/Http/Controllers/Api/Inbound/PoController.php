@@ -44,13 +44,13 @@ class PoController extends Controller
         $totalQTYOntime = $this->data->where('LATE', '=', 0)->sum('OPEN_QTY');
 
         $totalDoclate = $this->data
-        ->where('LATE', '>', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('RECEIPT_ID')      // Kelompokkan berdasarkan receipt_id
-        ->count();                   // Hitung jumlah distinct receipt_id
+        ->where('LATE', '>', 0)  
+        ->groupBy('RECEIPT_ID')      
+        ->count();                  
 
         $totalDocOntime = $this->data
-        ->where('LATE', '=', 0)  // Filter data dengan Deadline > 0
-        ->groupBy('RECEIPT_ID')      // Kelompokkan berdasarkan receipt_id
+        ->where('LATE', '=', 0)  
+        ->groupBy('RECEIPT_ID')     
         ->count(); 
         
         $total = $totalDoclate + $totalDocOntime;
