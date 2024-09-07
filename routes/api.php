@@ -199,3 +199,4 @@ Route::get('/grpokaliurangdetailin', [\App\Http\Controllers\Api\Kaliurang\Inboun
 Route::get('/grpokaliurangdetailtransit', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransit']);
 Route::get('/grpokaliurangheader', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeader']);
 Route::get('/grpokaliurangheaderstatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeaderStatistic']);
+Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingContoller::class, 'getCashPicking']);
