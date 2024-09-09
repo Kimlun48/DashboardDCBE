@@ -14,8 +14,8 @@ class grpoController extends Controller
 
     public function __construct()
     {
-        $this->warehouse = '01021001';
-        
+        //$this -> warehouse = '01003001';//a.yani
+        $this -> warehouse = '01021001';//kaliurang
     }
 
     public function getGrpoDataHeader()

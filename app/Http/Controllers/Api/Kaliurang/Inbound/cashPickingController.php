@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\kaliurang\inbound\CashPicking;
 
-class cashPickingContoller extends Controller
+class cashPickingController extends Controller
 {
     protected $warehouse;
     
     public function __construct()
     {
-        // $this -> warehouse = '01003001';
-        $this -> warehouse = '01021001';
+        //$this -> warehouse = '01003001';//a.yani
+       $this -> warehouse = '01021001';//kaliurang
     }
 
     public function getCashPicking ()
