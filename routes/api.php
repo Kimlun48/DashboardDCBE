@@ -208,5 +208,9 @@ Route::get('/grpokaliurangdetailout', [\App\Http\Controllers\Api\Kaliurang\Inbou
 Route::get('/grpokaliurangdetailtransit', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransit']);
 Route::get('/grpokaliurangheader', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeader']);
 Route::get('/grpokaliurangheaderstatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeaderStatistic']);
+Route::get('/grpokaliurangheaderstatisticstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeaderStatisticStore']);
+Route::get('/grpokaliurangdetailinstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailINStore']);
+Route::get('/grpokaliurangdetailoutstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailOutStore']);
+Route::get('/grpokaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransitStore']);
 //Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingContoller::class, 'getCashPicking']);
 Route::get('kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingController::class, 'getCashPicking']);
