@@ -37,14 +37,14 @@ class UserTableSeeder extends Seeder
          $adminUser = User::create([
             'name'      => 'admin',
             'email'     => 'admin@gmail.com',
-            'password'  => bcrypt('password')
+            'password'  => bcrypt('admin123#')
         ]);
 
         // Buat pengguna user
         $regularUser = User::create([
             'name'      => 'inbound',
             'email'     => 'inbound@gmail.com',
-            'password'  => bcrypt('password')
+            'password'  => bcrypt('inbound123#')
         ]);
 
         // Dapatkan semua izin
