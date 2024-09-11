@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Admin\LoginController;
+use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\IlsController;
 use App\Http\Controllers\Api\Admin\AuthController;
+use App\Models\admin\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
                  return $request->user();
              });
+    Route::get('/getuser', [UserController::class, 'index']);
+    Route::post('/createuser',[UserController::class, 'create']);
+    Route::put('/updateuser/{id}',[UserController::class, 'update']);
+    Route::delete('/deleteuser/{id}',[UserController::class, 'destroy']);
+    //Route::put('/updateuser', [UserController::class, 'update']);
 
              Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
              Route::get('/v2itrin', [\App\Http\Controllers\Api\Inbound\ItrInController::class, 'index']);

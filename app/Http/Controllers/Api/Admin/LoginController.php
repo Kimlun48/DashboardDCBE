@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
-
+use Spatie\Permission\Models\Role;
 class LoginController extends Controller
 {
+    
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -41,7 +42,7 @@ class LoginController extends Controller
         $accessToken = $user->createToken($accessTokenName)->plainTextToken;
         $refreshToken = Str::random(60);
 
-        // Simpan refresh token di database
+        
         $user->tokens()->create([
             'name' => 'refresh_token',
             'token' => hash('sha256', $refreshToken),
@@ -60,7 +61,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete(); // Menghapus semua token pengguna
+        $request->user()->tokens()->delete(); 
 
         return response()->json([
             'success' => true
@@ -124,4 +125,6 @@ class LoginController extends Controller
             return response()->json(['error' => 'Failed to register user', 'message' => $e->getMessage()], 500);
         }
     }
+
+    
 }
