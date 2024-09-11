@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createuser',[UserController::class, 'create']);
     Route::put('/updateuser/{id}',[UserController::class, 'update']);
     Route::delete('/deleteuser/{id}',[UserController::class, 'destroy']);
+    Route::get('/getcurrentuser', [UserController::class, 'getCurrentUser']);
     //Route::put('/updateuser', [UserController::class, 'update']);
 
              Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
@@ -203,6 +204,7 @@ Route::get('/v2statisticsalesorder', [\App\Http\Controllers\Api\Outbound\SalesOr
 
 Route::get('/grpokaliurangdetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetail']);
 Route::get('/grpokaliurangdetailin', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailIN']);
+Route::get('/grpokaliurangdetailout', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailOut']);
 Route::get('/grpokaliurangdetailtransit', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransit']);
 Route::get('/grpokaliurangheader', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeader']);
 Route::get('/grpokaliurangheaderstatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataHeaderStatistic']);

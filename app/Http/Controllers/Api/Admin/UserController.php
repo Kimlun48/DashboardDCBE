@@ -14,6 +14,20 @@ class UserController extends Controller
 {
 
 
+    public function getCurrentUser(Request $request)
+    {
+        $user = $request->user();
+        
+        return response()->json([
+            'data' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'roles' => $user->roles->pluck('name')->toArray() // Ensures roles are in an array
+            ]
+        ]);
+    }
+
     public function index()
     {
     $role = auth()->user()->getRoleNames();
@@ -72,39 +86,40 @@ class UserController extends Controller
 
 
     public function update(Request $request, $id)
-    {
-   
-    $user = User::find($id);
-
-   
-    if (!$user) {
-        return response()->json(['error' => 'User not found'], 404);
-    }
-
-    
+{
+    // Validasi input dari request
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-        'password' => 'nullable|string|min:8|confirmed',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $id, 
+        'password' => 'nullable|string|min:8|confirmed', 
+        'role' => 'required|string|exists:roles,name'
     ]);
 
     try {
-       
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user = User::findOrFail($id);
 
         
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password, 
+        ]);
+        $user->syncRoles([$request->role]);
 
-        $user->save();
+             return response()->json([
+            'message' => 'User updated successfully',
+            'user' => $user
+        ], 200);
 
-        return response()->json(['message' => 'User updated successfully'], 200);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Failed to update user', 'message' => $e->getMessage()], 500);
+        // Penanganan error
+        return response()->json([
+            'error' => 'Failed to update user',
+            'message' => $e->getMessage()
+        ], 500);
     }
-    }
+}
+
 
     public function destroy($id)
     {

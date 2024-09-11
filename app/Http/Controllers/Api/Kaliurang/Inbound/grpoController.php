@@ -39,7 +39,8 @@ class grpoController extends Controller
         try {
             $type = '1';  
             $binIn = '01021001-IN-01';
-            $binTransit = '01021001-TRANSIT';        
+            $binTransit = '01021001-TRANSIT';
+            $binOut = '01021001-OUT-01';        
             $Grpo = grpo::getGrpo($this->warehouse, '', $type);
             if (empty($Grpo)) {
                 return response()->json(['message' => 'No orders found'], 404);
@@ -47,13 +48,19 @@ class grpoController extends Controller
             $GrpoIn = collect($Grpo)->filter(function ($item) use ($binIn) {
                 return $item->BINLOCATION === strtoupper($binIn);  
             })->values(); 
+            $GrpoOut = collect($Grpo)->filter(function ($item) use ($binOut) {
+                return $item->BINLOCATION === strtoupper($binOut);  
+            })->values(); 
             $GrpoTransit = collect($Grpo)->filter(function ($item) use ($binTransit) {
                 return $item->BINLOCATION === strtoupper($binTransit);  
             })->values(); 
+
             $onHandIn = $GrpoIn->pluck('ONHAND')->first() ?? 0; 
+            $onHandOut = $GrpoOut->pluck('ONHAND')->first() ?? 0; 
             $onHandTransit = $GrpoTransit->pluck('ONHAND')->first() ?? 0; 
             return response()->json([
                 'ONHANDIN' => $onHandIn,
+                'ONHANDOUT' => $onHandOut,
                 'ONHANDTRANSIT' => $onHandTransit,
             ]);
     
@@ -96,6 +103,23 @@ class grpoController extends Controller
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin IN'], 404);
+        }
+
+        return response()->json($Grpo);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+    }
+
+    public function getGrpoDataDetailOut()
+    {
+    try {
+        $type = '2';  
+        $binIn = '01021001-OUT-01';
+        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+
+        if (empty($Grpo)) {
+            return response()->json(['message' => 'No orders Bin Out'], 404);
         }
 
         return response()->json($Grpo);
