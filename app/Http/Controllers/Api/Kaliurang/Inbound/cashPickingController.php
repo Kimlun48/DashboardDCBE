@@ -12,8 +12,8 @@ class cashPickingController extends Controller
     
     public function __construct()
     {
-        //$this -> warehouse = '01003001';//a.yani
-       $this -> warehouse = '01021001';//kaliurang
+       // $this -> warehouse = '01003001';//a.yani
+      $this -> warehouse = '01021001';//kaliurang
     }
 
     public function getCashPicking ()
