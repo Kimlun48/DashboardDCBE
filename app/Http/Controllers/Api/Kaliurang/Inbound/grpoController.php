@@ -145,6 +145,93 @@ class grpoController extends Controller
     }
     }
 
+    public function getGrpoDataHeaderStatisticStore ()
+    {
+        try {
+            $type = '3';  
+            $binInStore = '01021001-STORE-IN';
+            $binOutStore = '01021001-STORE-OUT';
+            $binTransitStore = '01021001-TRANSIT';        
+            $Grpo = grpo::getGrpo($this->warehouse, '', $type);
+            if (empty($Grpo)) {
+                return response()->json(['message' => 'No orders found'], 404);
+            }
+            $GrpoInStore = collect($Grpo)->filter(function ($item) use ($binInStore) {
+                return $item->BINLOCATION === strtoupper($binInStore);  
+            })->values(); 
+            $GrpoOutStore = collect($Grpo)->filter(function ($item) use ($binOutStore) {
+                return $item->BINLOCATION === strtoupper($binOutStore);  
+            })->values(); 
+            $GrpoTransitStore = collect($Grpo)->filter(function ($item) use ($binTransitStore) {
+                return $item->BINLOCATION === strtoupper($binTransitStore);  
+            })->values(); 
+
+            $onHandInStore = $GrpoInStore->pluck('ONHAND')->first() ?? 0; 
+            $onHandOutStore = $GrpoOutStore->pluck('ONHAND')->first() ?? 0; 
+            $onHandTransitStore = $GrpoTransitStore->pluck('ONHAND')->first() ?? 0; 
+            return response()->json([
+                'ONHANDIN' => $onHandInStore,
+                'ONHANDOUT' => $onHandOutStore,
+                'ONHANDTRANSIT' => $onHandTransitStore,
+            ]);
+    
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
+        
+    }
+
+    public function getGrpoDataDetailINStore()
+    {
+    try {
+        $type = '2';  
+        $binIn = '01021001-STORE-IN';
+        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+
+        if (empty($Grpo)) {
+            return response()->json(['message' => 'No orders Bin IN'], 404);
+        }
+
+        return response()->json($Grpo);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+    }
+
+    public function getGrpoDataDetailOutStore()
+    {
+    try {
+        $type = '2';  
+        $binIn = '01021001-STORE-OUT';
+        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+
+        if (empty($Grpo)) {
+            return response()->json(['message' => 'No orders Bin Out'], 404);
+        }
+
+        return response()->json($Grpo);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+    }
+
+    public function getGrpoDataDetailTransitStore()
+    {
+    try {
+        $type = '2';  
+        $binTransit = '01021001-TRANSIT';
+        $Grpo = grpo::getGrpo($this->warehouse, $binTransit, $type);
+
+        if (empty($Grpo)) {
+            return response()->json(['message' => 'No orders in Bin Transit'], 404);
+        }
+
+        return response()->json($Grpo);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+    }
+
 
     
 }
