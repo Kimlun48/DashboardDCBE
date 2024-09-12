@@ -213,4 +213,5 @@ Route::get('/grpokaliurangdetailinstore', [\App\Http\Controllers\Api\Kaliurang\I
 Route::get('/grpokaliurangdetailoutstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailOutStore']);
 Route::get('/grpokaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransitStore']);
 //Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingContoller::class, 'getCashPicking']);
-Route::get('kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingController::class, 'getCashPicking']);
+Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingController::class, 'getCashPicking']);
+Route::get('/kaliurangcashstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\CashStoreController::class, 'getCashStore']);

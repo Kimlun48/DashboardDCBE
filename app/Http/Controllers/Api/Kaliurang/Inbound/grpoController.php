@@ -204,7 +204,6 @@ class grpoController extends Controller
         $type = '2';  
         $binIn = '01021001-STORE-OUT';
         $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
-
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin Out'], 404);
         }
