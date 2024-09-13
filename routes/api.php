@@ -216,3 +216,7 @@ Route::get('/grpokaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliur
 //Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingContoller::class, 'getCashPicking']);
 Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingController::class, 'getCashPicking']);
 Route::get('/kaliurangcashpndstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\CashStoreController::class, 'getCashStore']);
+Route::get('/kaliurangcashcarrystorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryPnd']);
+Route::get('/kaliurangdelivcusstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomer']);
+Route::get('/kaliurangitrinstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrIn']);
+Route::get('/kaliurangitroutstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOut']);
