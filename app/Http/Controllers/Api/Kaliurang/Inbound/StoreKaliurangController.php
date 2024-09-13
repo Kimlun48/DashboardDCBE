@@ -88,4 +88,76 @@ class StoreKaliurangController extends Controller
             ],500);
         }
     }
+
+    public function getCashCarryLate()
+    {
+        try {
+            $type = 11;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            if (empty($store)){
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+            return new StoreKaliurangResource(true, 'Data cash carry late', $store);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred' . $e->getMessage(),
+            ],500);
+        }
+    }
+
+    public function getDeliveryCustomerLate()
+    {
+        try {
+            $type = 21;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            if (empty($store)){
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+            return new StoreKaliurangResource(true, 'Data Delivery customer late', $store);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred' . $e->getMessage(),
+            ],500);
+        }
+    }
+
+    public function getItrInLate()
+    {
+        try {
+            $type = 31;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            if (empty($store)){
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+            return new StoreKaliurangResource(true, 'Data ITR in late', $store);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred' . $e->getMessage(),
+            ],500);
+        }
+    }
+
+    public function getItrOutLate()
+    {
+        try {
+            $type = 41;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            if (empty($store)){
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+            return new StoreKaliurangResource(true, 'Data ITR Out late', $store);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred' . $e->getMessage(),
+            ],500);
+        }
+    }
 }

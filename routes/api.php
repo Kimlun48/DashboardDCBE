@@ -220,3 +220,7 @@ Route::get('/kaliurangcashcarrystorestatistic', [\App\Http\Controllers\Api\Kaliu
 Route::get('/kaliurangdelivcusstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomer']);
 Route::get('/kaliurangitrinstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrIn']);
 Route::get('/kaliurangitroutstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOut']);
+Route::get('/kaliurangstorestatisticcashcarrylate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryLate']);
+Route::get('/kaliurangstorestatisticdeliverycustomerlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerLate']);
+Route::get('/kaliurangstorestatisticitrinlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInLate']);
+Route::get('/kaliurangstorestatisticitroutlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutLate']);
