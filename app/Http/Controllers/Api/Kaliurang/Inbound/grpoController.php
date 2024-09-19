@@ -14,7 +14,7 @@ class grpoController extends Controller
 
     public function __construct()
     {
-        //$this -> warehouse = '01003001';//a.yani
+       // $this -> warehouse = '01003001';//a.yani
         $this -> warehouse = '01021001';//kaliurang
     }
 
@@ -178,6 +178,19 @@ class grpoController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
+        // try {
+        //     $type = '3';  
+        //     $binIn = '01021001-STORE-IN';
+        //     $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+    
+        //     if (empty($Grpo)) {
+        //         return response()->json(['message' => 'No orders Bin IN'], 404);
+        //     }
+    
+        //     return response()->json($Grpo);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+        // }
         
     }
 
@@ -243,34 +256,6 @@ class grpoController extends Controller
                 return response()->json(['message' => 'No orders found'], 404);
             }
     
-            // Transformasi data menjadi format objek yang diinginkan
-            // $formattedData = [
-            //     'Bin IN Store Late' => 0,
-            //     'Bin Transit Store Late' => 0,
-            //     'Bin OUT Store Late' => 0
-            // ];
-    
-            // foreach ($Grpo as $item) {
-            //     switch ($item->BinCode) {
-            //         case '01021001-STORE-IN':
-            //             $formattedData['Bin IN Store Late'] = (int)$item->ONHAND;
-            //             break;
-            //         case '01021001-TRANSIT':
-            //             $formattedData['Bin Transit Store Late'] = (int)$item->ONHAND;
-            //             break;
-            //         case '01021001-STORE-OUT':
-            //             $formattedData['Bin OUT Store Late'] = (int)$item->ONHAND;
-            //             break;
-            //         default:
-            //             // Tidak melakukan apa-apa jika BinCode tidak dikenali
-            //             break;
-            //     }
-            // }
-    
-            // return response()->json([
-            //     'message' => 'Orders found',
-            //     'data' => $formattedData
-            // ], 200);
             return response()->json([
                 'data' => $Grpo
             ], 200);
@@ -279,6 +264,73 @@ class grpoController extends Controller
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
     }
+
+    public function getGrpoStatisticStoreDetailBinInLate()
+    {
+        try {
+            $type = '5';
+            $warehouse = '01021001';
+            $binIn = '01021001-STORE-IN';
+          //  $binIn = '01003001-IN-01';
+            
+           
+            $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+            
+            if (empty($Grpo)) {
+                return response()->json(['message' => 'No orders found'], 404);
+            }
+    
+            return new getgrpoResource(true, 'Data Detail IN Late', $Grpo);
+    
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function getGrpoStatisticStoreDetailBinOutLate()
+        {
+            try {
+                $type = '5';
+                $warehouse = '01021001';
+              $binIn = '01021001-STORE-OUT';
+               // $binIn = '01003001-OUT-01';
+                
+               
+                $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+                
+                if (empty($Grpo)) {
+                    return response()->json(['message' => 'No orders found'], 404);
+                }
+        
+                return new getgrpoResource(true, 'Data Detail OUT Late', $Grpo);
+        
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+            }
+        }
+
+
+        public function getGrpoStatisticStoreDetailBinTransitLate()
+        {
+            try {
+                $type = '5';
+                $warehouse = '01021001';
+             //   $binIn = '01021001-STORE-IN';
+                $binIn = '01021001-TRANSIT';
+                
+               
+                $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+                
+                if (empty($Grpo)) {
+                    return response()->json(['message' => 'No orders found'], 404);
+                }
+        
+                return new getgrpoResource(true, 'Data Detail Transit Late', $Grpo);
+        
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+            }  
+        }
     
 
 
