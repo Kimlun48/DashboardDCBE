@@ -223,18 +223,32 @@ Route::get('/kaliurangcashpndstore', [\App\Http\Controllers\Api\Kaliurang\Inboun
 Route::get('/kaliurangcashcarrystorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryPnd']);
 Route::get('/kaliurangcashcarrystorestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryLateDetail']);
 Route::get('/kaliurangcashcarrystorestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryOnScheduleDetail']);
+Route::get('/kaliurangcashcarryorderreceived', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryOrderReceived']);
+Route::get('/kaliurangcashcarrybeingprocess', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryBeingProcess']);
+Route::get('/kaliurangcashcarryreadypickup', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryReadyPickup']);
+
 
 Route::get('/kaliurangdelivcusstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomer']);
 Route::get('/kaliurangdelivcusstorestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerLateDetail']);
 Route::get('/kaliurangdelivcusstorestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerOnScheduleDetail']);
+Route::get('/kaliurangdelivcusstoreorderreceived', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerOrderReceived']);
+Route::get('/kaliurangdelivcusstorebeingprocess', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerBeingProcess']);
+Route::get('/kaliurangdelivcusstorereadypickup', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerReadyPickup']);
 
 Route::get('/kaliurangitrinstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrIn']);
 Route::get('/kaliurangitrinstorestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInLateDetail']);
 Route::get('/kaliurangitrinstorestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInOnScheduleDetail']);
+Route::get('/kaliurangitrinorderreceived', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInOrderReceived']);
+Route::get('/kaliurangitrinbeingprocess', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInBeingProcess']);
+Route::get('/kaliurangitrinreadypickup', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInReadyPickup']);
+
 
 Route::get('/kaliurangitroutstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOut']);
 Route::get('/kaliurangitroutstorestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutLateDetail']);
 Route::get('/kaliurangitroutstorestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutOnScheduleDetail']);
+Route::get('/kaliurangitroutorderreceived', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutOrderReceived']);
+Route::get('/kaliurangitroutbeingprocess', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutBeingProcess']);
+Route::get('/kaliurangitroutreadypickup', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutReadyPickup']);
 
 
 Route::get('/kaliurangstorestatisticcashcarrylate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getCashCarryLate']);

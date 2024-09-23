@@ -222,6 +222,97 @@ class StoreKaliurangController extends Controller
         }
     }
 
+
+    public function getCashCarryOrderReceived()
+    {
+        try {
+            $type = 111;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> OPEN > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Cash & Carry Order Received detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getCashCarryBeingProcess()
+    {
+        try {
+            $type = 111;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> RELEASED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Cash & Carry Being Process detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getCashCarryReadyPickup()
+    {
+        try {
+            $type = 111;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> PICKED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Cash & Carry ready pickup detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function getDeliveryCustomerLateDetail()
     {
         try {
@@ -274,6 +365,96 @@ class StoreKaliurangController extends Controller
             //     'data' => $filteredStore->values()->all() 
             // ]);
             return new StoreKaliurangResource(true, 'Data Delivery Customer on schedule detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDeliveryCustomerOrderReceived()
+    {
+        try {
+            $type = 211;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> OPEN > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Delivery Customer Order Received detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDeliveryCustomerBeingProcess()
+    {
+        try {
+            $type = 211;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> RELEASED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Delivery Customer Being Process detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDeliveryCustomerReadyPickup()
+    {
+        try {
+            $type = 211;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> PICKED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data Delivery Customer ready pickup detail',  $filteredStore->values()->all() );
             
         } catch (\Exception $e) {
             return response()->json([
@@ -344,6 +525,96 @@ class StoreKaliurangController extends Controller
         }
     }
 
+    public function getItrInOrderReceived()
+    {
+        try {
+            $type = 311;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> OPEN > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR In Order Received detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getItrInBeingProcess()
+    {
+        try {
+            $type = 311;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> RELEASED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR In Being Process detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getItrInReadyPickup()
+    {
+        try {
+            $type = 311;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> PICKED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR In ready pickup detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function getItrOutLateDetail()
     {
         try {
@@ -396,6 +667,96 @@ class StoreKaliurangController extends Controller
             //     'data' => $filteredStore->values()->all() 
             // ]);
             return new StoreKaliurangResource(true, 'Data ITR Out On Schedule detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getItrOutOrderReceived()
+    {
+        try {
+            $type = 411;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> OPEN > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR Out Order Received detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getItrOutBeingProcess()
+    {
+        try {
+            $type = 411;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> RELEASED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR Out Being Process detail',  $filteredStore->values()->all() );
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getItrOutReadyPickup()
+    {
+        try {
+            $type = 411;
+            $store = StoreKaliurang::getStoreKaliurang($this->warehouse, $type);
+            
+            $filteredStore = collect($store)->filter(function ($item) {
+                return $item-> PICKED > 0; 
+            });
+    
+            if ($filteredStore->isEmpty()) {
+                return response()->json([
+                    'message' => 'No Order Found',
+                ], 404);
+            }
+    
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Data ITR In On Schedule detail',
+            //     'data' => $filteredStore->values()->all() 
+            // ]);
+            return new StoreKaliurangResource(true, 'Data ITR Out ready pickup detail',  $filteredStore->values()->all() );
             
         } catch (\Exception $e) {
             return response()->json([
