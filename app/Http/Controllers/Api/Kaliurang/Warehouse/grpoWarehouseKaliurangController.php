@@ -1,47 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Api\Kaliurang\Inbound;
+namespace App\Http\Controllers\Api\Kaliurang\Warehouse;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\kaliurang\inbound\getgrpoResource;
-use App\Models\kaliurang\inbound\grpo;
-class grpoController extends Controller
+use App\Http\Resources\kaliurang\warehouse\getGrpoWarehouseKaliurangResource;
+use App\Models\kaliurang\warehouse\grpoWarehouseKaliurang;
+use PhpParser\Node\Stmt\TryCatch;
+
+class grpoWarehouseKaliurangController extends Controller
 {
-   
-    protected $warehouse;
+    protected $warehouse ;
     protected $bin;
 
     public function __construct()
     {
-       // $this -> warehouse = '01003001';//a.yani
-        $this -> warehouse = '01021001';//kaliurang
+        $this -> warehouse = '01021002';
     }
 
-    public function getGrpoDataHeader()
+    public function getGrpoWarehouse()
     {
         try {
-            $type = '1';  
-            $bin ='01021001-in-01';
-            $Grpo = grpo::getGrpo($this->warehouse, $bin, $type);
-
-            if (empty($Grpo)) {
-                return response()->json(['message' => 'No orders found'], 404);
+            $type = '1';
+            $bin = '01021002-in-01';
+            $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $bin, $type);
+            if (empty($Grpo))
+            {
+                return response()->json([
+                    'message' => 'No Order found'
+                ], 404);
             }
             return response()->json($Grpo);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+            return response()->json([
+                'erore' => 'An error occurred: '.$e->getMessage()
+            ], 500);
         }
     }
 
-    public function getGrpoDataHeaderStatistic ()
+    public function getGrpoWarehouseStatistic ()
     {
         try {
             $type = '1';  
-            $binIn = '01021001-IN-01';
-            $binTransit = '01021001-TRANSIT';
-            $binOut = '01021001-OUT-01';        
-            $Grpo = grpo::getGrpo($this->warehouse, '', $type);
+            $binIn = '01021002-IN-01';
+            $binTransit = '01021002-TRANSIT';
+            $binOut = '01021002-OUT-01';        
+            $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, '', $type);
             if (empty($Grpo)) {
                 return response()->json(['message' => 'No orders found'], 404);
             }
@@ -67,18 +71,16 @@ class grpoController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
-        
     }
-    
 
     public function getGrpoDataDetail()
     {
         try {
             $type = '2';  
-            $binIn ='01021001-in-01';
-            $binTransit ='01021001-TRANSIT';
-            $GrpoIn = grpo::getGrpo($this->warehouse, $binIn, $type);
-            $GrpoTransit = grpo::getGrpo($this->warehouse, $binTransit, $type);
+            $binIn ='01021002-in-01';
+            $binTransit ='01021002-TRANSIT';
+            $GrpoIn = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
+            $GrpoTransit = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binTransit, $type);
 
             if (empty($GrpoIn) && empty($GrpoTransit)) {
                 return response()->json(['message' => 'No orders found for both locations'], 404);
@@ -98,8 +100,8 @@ class grpoController extends Controller
     {
     try {
         $type = '2';  
-        $binIn = '01021001-in-01';
-        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+        $binIn = '01021002-in-01';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin IN'], 404);
@@ -115,8 +117,8 @@ class grpoController extends Controller
     {
     try {
         $type = '2';  
-        $binIn = '01021001-OUT-01';
-        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+        $binIn = '01021002-OUT-01';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin Out'], 404);
@@ -132,8 +134,8 @@ class grpoController extends Controller
     {
     try {
         $type = '2';  
-        $binTransit = '01021001-TRANSIT';
-        $Grpo = grpo::getGrpo($this->warehouse, $binTransit, $type);
+        $binTransit = '01021002-TRANSIT';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binTransit, $type);
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders in Bin Transit'], 404);
@@ -145,14 +147,14 @@ class grpoController extends Controller
     }
     }
 
-    public function getGrpoDataHeaderStatisticStore ()
+    public function getGrpoDataHeaderStatisticWareHouse ()
     {
         try {
             $type = '3';  
-            $binInStore = '01021001-STORE-IN';
-            $binOutStore = '01021001-STORE-OUT';
-            $binTransitStore = '01021001-TRANSIT';        
-            $Grpo = grpo::getGrpo($this->warehouse, '', $type);
+            $binInStore = '01021002-STORE-IN';
+            $binOutStore = '01021002-STORE-OUT';
+            $binTransitStore = '01021002-TRANSIT';        
+            $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, '', $type);
             if (empty($Grpo)) {
                 return response()->json(['message' => 'No orders found'], 404);
             }
@@ -178,28 +180,19 @@ class grpoController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
-        // try {
-        //     $type = '3';  
-        //     $binIn = '01021001-STORE-IN';
-        //     $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
-    
-        //     if (empty($Grpo)) {
-        //         return response()->json(['message' => 'No orders Bin IN'], 404);
-        //     }
-    
-        //     return response()->json($Grpo);
-        // } catch (\Exception $e) {
-        //     return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
-        // }
+      
         
     }
 
-    public function getGrpoDataDetailINStore()
+
+    
+
+    public function getGrpoDataDetailINWarehouse()
     {
     try {
         $type = '2';  
-        $binIn = '01021001-STORE-IN';
-        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+        $binIn = '01021002-STORE-IN';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin IN'], 404);
@@ -211,12 +204,12 @@ class grpoController extends Controller
     }
     }
 
-    public function getGrpoDataDetailOutStore()
+    public function getGrpoDataDetailOutWarehouse()
     {
     try {
         $type = '2';  
-        $binIn = '01021001-STORE-OUT';
-        $Grpo = grpo::getGrpo($this->warehouse, $binIn, $type);
+        $binIn = '01021002-STORE-OUT';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders Bin Out'], 404);
         }
@@ -227,12 +220,12 @@ class grpoController extends Controller
     }
     }
 
-    public function getGrpoDataDetailTransitStore()
+    public function getGrpoDataDetailTransitWarehouse()
     {
     try {
         $type = '2';  
-        $binTransit = '01021001-TRANSIT';
-        $Grpo = grpo::getGrpo($this->warehouse, $binTransit, $type);
+        $binTransit = '01021002-TRANSIT';
+        $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binTransit, $type);
 
         if (empty($Grpo)) {
             return response()->json(['message' => 'No orders in Bin Transit'], 404);
@@ -244,13 +237,13 @@ class grpoController extends Controller
     }
     }
 
-    public function getGrpoDataHeaderStatisticStoreBinLate()
+    public function getGrpoDataHeaderStatisticWarehouseBinLate()
     {
         try {
             $type = '4';  
-              
+            
             // Ambil data GRPO berdasarkan warehouse dan type
-            $Grpo = grpo::getGrpo($this->warehouse, '', $type);
+            $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, '', $type);
             
             if (empty($Grpo)) {
                 return response()->json(['message' => 'No orders found'], 404);
@@ -265,44 +258,44 @@ class grpoController extends Controller
         }
     }
 
-    public function getGrpoStatisticStoreDetailBinInLate()
+    public function getGrpoStatisticWarehouseDetailBinInLate()
     {
         try {
             $type = '5';
-            $warehouse = '01021001';
-            $binIn = '01021001-STORE-IN';
+            
+            $binIn = '01021002-STORE-IN';
           //  $binIn = '01003001-IN-01';
             
            
-            $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+            $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
             
             if (empty($Grpo)) {
                 return response()->json(['message' => 'No orders found'], 404);
             }
     
-            return new getgrpoResource(true, 'Data Detail IN Late', $Grpo);
+            return new getGrpoWarehouseKaliurangResource(true, 'Data Detail IN Late', $Grpo);
     
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
     }
 
-    public function getGrpoStatisticStoreDetailBinOutLate()
+    public function getGrpoStatisticWarehouseDetailBinOutLate()
         {
             try {
                 $type = '5';
-                $warehouse = '01021001';
-              $binIn = '01021001-STORE-OUT';
+                
+              $binIn = '01021002-STORE-OUT';
                // $binIn = '01003001-OUT-01';
                 
                
-                $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+                $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
                 
                 if (empty($Grpo)) {
                     return response()->json(['message' => 'No orders found'], 404);
                 }
         
-                return new getgrpoResource(true, 'Data Detail OUT Late', $Grpo);
+                return new getGrpoWarehouseKaliurangResource(true, 'Data Detail OUT Late', $Grpo);
         
             } catch (\Exception $e) {
                 return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
@@ -310,29 +303,25 @@ class grpoController extends Controller
         }
 
 
-        public function getGrpoStatisticStoreDetailBinTransitLate()
+        public function getGrpoStatisticWarehouseilBinTransitLate()
         {
             try {
                 $type = '5';
-                $warehouse = '01021001';
-             //   $binIn = '01021001-STORE-IN';
-                $binIn = '01021001-TRANSIT';
+              
+             //   $binIn = '01021002-STORE-IN';
+                $binIn = '01021002-TRANSIT';
                 
                
-                $Grpo = grpo::getGrpo($warehouse, $binIn, $type);
+                $Grpo = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binIn, $type);
                 
                 if (empty($Grpo)) {
                     return response()->json(['message' => 'No orders found'], 404);
                 }
         
-                return new getgrpoResource(true, 'Data Detail Transit Late', $Grpo);
+                return new getGrpoWarehouseKaliurangResource(true, 'Data Detail Transit Late', $Grpo);
         
             } catch (\Exception $e) {
                 return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
             }  
         }
-    
-
-
-    
 }
