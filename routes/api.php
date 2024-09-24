@@ -216,6 +216,7 @@ Route::get('/grpokaliurangstatisticbintransitlatedetail', [\App\Http\Controllers
 Route::get('/grpokaliurangdetailinstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailINStore']);
 Route::get('/grpokaliurangdetailoutstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailOutStore']);
 Route::get('/grpokaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\grpoController::class, 'getGrpoDataDetailTransitStore']);
+
 //Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingContoller::class, 'getCashPicking']);
 Route::get('/kaliurangcashpicking', [\App\Http\Controllers\Api\Kaliurang\Inbound\cashPickingController::class, 'getCashPicking']);
 Route::get('/kaliurangcashpndstore', [\App\Http\Controllers\Api\Kaliurang\Inbound\CashStoreController::class, 'getCashStore']);
@@ -255,3 +256,54 @@ Route::get('/kaliurangstorestatisticcashcarrylate', [\App\Http\Controllers\Api\K
 Route::get('/kaliurangstorestatisticdeliverycustomerlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getDeliveryCustomerLate']);
 Route::get('/kaliurangstorestatisticitrinlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInLate']);
 Route::get('/kaliurangstorestatisticitroutlate', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOutLate']);
+
+
+///warehouse 
+Route::get('/grpowarehousekaliurang', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoWarehouse']);
+Route::get('/grpowarehousekaliurangheaderstatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoWarehouseStatistic']);
+Route::get('/grpowarehousekaliurangdetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetail']);
+Route::get('/grpowarehousekaliurangdetailin', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailIN']);
+Route::get('/grpowarehousekaliurangdetailout', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailOut']);
+Route::get('/grpowarehousekaliurangdetailtransit', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailTransit']);
+Route::get('/grpokaliurangheaderstatisticwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataHeaderStatisticWarehouse']);
+Route::get('/grpokaliurangheaderstatisticwarehousebinlate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataHeaderStatisticWarehouseBinLate']);
+Route::get('/grpowarehousekaliurangstatisticbininlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseDetailBinInLate']);
+Route::get('/grpowarehousekaliurangstatisticbinoutlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseDetailBinOutLate']);
+Route::get('/grpowarehousekaliurangstatisticbintransitlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseilBinTransitLate']);
+Route::get('/grpowarehousekaliurangdetailinstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailINWarehouse']);
+Route::get('/grpowarehousekaliurangdetailoutstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailOutWarehouse']);
+Route::get('/grpowarehousekaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailTransitWarehouse']);
+
+Route::get('/kaliurangcashcarrywarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryPnd']);
+Route::get('/kaliurangwarehousestatisticcashcarrylate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryLate']);
+Route::get('/kaliurangcashcarrywarehousestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryLateDetail']);
+Route::get('/kaliurangcashcarrywarehousestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryOnScheduleDetail']);
+Route::get('/kaliurangcashcarrywarehouseorderreceived', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryOrderReceived']);
+Route::get('/kaliurangcashcarrywarehousebeingprocess', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryBeingProcess']);
+Route::get('/kaliurangcashcarrywarehousereadypickup', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryReadyPickup']);
+
+Route::get('/kaliurangdelivcuswarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomer']);
+Route::get('/kaliurangwarehousestatisticdeliverycustomerlate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerLate']);
+Route::get('/kaliurangdelivcuwarehousestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerLateDetail']);
+Route::get('/kaliurangdelivcuswarehousestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerOnScheduleDetail']);
+Route::get('/kaliurangdelivcuswarehouseorderreceived', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerOrderReceived']);
+Route::get('/kaliurangdelivcuswarehouseebeingprocess', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerBeingProcess']);
+Route::get('/kaliurangdelivcuswarehousereadypickup', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getDeliveryCustomerReadyPickup']);
+
+Route::get('/kaliurangitrinwarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrIn']);
+Route::get('/kaliurangwarehousestatisticitrinlate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInLate']);
+Route::get('/kaliurangitrinwarehousetatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInLateDetail']);
+Route::get('/kaliurangitrinwarehousetatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInOnScheduleDetail']);
+Route::get('/kaliurangitrinorderreceivedwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInOrderReceived']);
+Route::get('/kaliurangitrinbeingprocesswarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInBeingProcess']);
+Route::get('/kaliurangitrinreadypickupwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInReadyPickup']);
+
+Route::get('/kaliurangitroutwarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOut']);
+Route::get('/kaliurangwarehousetatisticitroutlate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutLate']);
+Route::get('/kaliurangitroutwarehousestatisticlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutLateDetail']);
+Route::get('/kaliurangitroutwarehousestatisticonscheduledetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutOnScheduleDetail']);
+Route::get('/kaliurangitroutorderreceivedwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutOrderReceived']);
+Route::get('/kaliurangitroutbeingprocesswarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutBeingProcess']);
+Route::get('/kaliurangitroutreadypickupwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutReadyPickup']);
+
+
