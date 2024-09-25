@@ -270,9 +270,9 @@ Route::get('/grpokaliurangheaderstatisticwarehousebinlate', [\App\Http\Controlle
 Route::get('/grpowarehousekaliurangstatisticbininlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseDetailBinInLate']);
 Route::get('/grpowarehousekaliurangstatisticbinoutlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseDetailBinOutLate']);
 Route::get('/grpowarehousekaliurangstatisticbintransitlatedetail', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoStatisticWarehouseilBinTransitLate']);
-Route::get('/grpowarehousekaliurangdetailinstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailINWarehouse']);
-Route::get('/grpowarehousekaliurangdetailoutstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailOutWarehouse']);
-Route::get('/grpowarehousekaliurangdetailtransitstore', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailTransitWarehouse']);
+Route::get('/grpowarehousekaliurangdetailinswarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailINWarehouse']);
+Route::get('/grpowarehousekaliurangdetailoutwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailOutWarehouse']);
+Route::get('/grpowarehousekaliurangdetailtransitwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class, 'getGrpoDataDetailTransitWarehouse']);
 
 Route::get('/kaliurangcashcarrywarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryPnd']);
 Route::get('/kaliurangwarehousestatisticcashcarrylate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getCashCarryLate']);
