@@ -21,4 +21,18 @@ class WarehouseKaliurang extends Model
     
         return $results;
     }
+
+    //  use HasFactory;
+    // protected $connection = 'DB_DUMMY';
+    // protected $table = 'DB_RKM_LIVE_2';
+
+    // public static function getWarehouseKaliurang($WAREHOUSE, $TYPE)
+    // {
+    //     $results = DB::connection('DB_DUMMY')->select('EXEC dbo.TMSP_DASHBOARD_STORE_PND_CASH_2 @WAREHOUSE = ?, @TYPE = ?', [
+    //         $WAREHOUSE,
+    //         $TYPE
+    //     ]);
+    
+    //     return $results;
+    // }
 }

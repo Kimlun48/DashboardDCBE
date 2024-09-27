@@ -103,7 +103,7 @@ return [
             // 'logging' => true, // Aktifkan logging untuk koneksi ini
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-        ],
+        ], 
 
         'DB_EMAIL' => [
             'driver' => 'sqlsrv',
@@ -196,6 +196,31 @@ return [
             'database' => env('DB_DATABASE_DB_ILS', 'forge'),
             'username' => env('DB_USERNAME_DB_ILS', 'forge'),
             'password' => env('DB_PASSWORD_DB_ILS', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
+            // 'options' => [
+            // PDO::ATTR_TIMEOUT => 120, // Timeout dalam detik
+            // ],
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            
+        // 'ansi_nulls' => true,
+        // 'ansi_warnings' => true,
+    
+        ],
+
+        'DB_DUMMY' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_DB_DUMMY', 'localhost'),
+            'port' => env('DB_PORT_DB_DUMMY', '1433'),
+            'database' => env('DB_DATABASE_DB_DUMMY', 'forge'),
+            'username' => env('DB_USERNAME_DB_DUMMY', 'forge'),
+            'password' => env('DB_PASSWORD_DB_DUMMY', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
