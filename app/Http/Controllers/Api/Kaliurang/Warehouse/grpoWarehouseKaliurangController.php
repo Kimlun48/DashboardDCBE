@@ -15,7 +15,8 @@ class grpoWarehouseKaliurangController extends Controller
 
     public function __construct()
     {
-        $this -> warehouse = '01021002';
+         $this -> warehouse = '01021002';
+        //$this -> warehouse = '01007001';
     }
 
     public function getGrpoWarehouse()
@@ -96,7 +97,7 @@ class grpoWarehouseKaliurangController extends Controller
         }
     }
 
-    public function getGrpoDataDetailIN()
+    public function getGrpoDataDetailIN() 
     {
     try {
         $type = '2';  
@@ -323,5 +324,22 @@ class grpoWarehouseKaliurangController extends Controller
             } catch (\Exception $e) {
                 return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
             }  
+        }
+
+        public function getItrInDataDetailTransit()
+         {
+                try {
+                $type = '6';  
+                $binTransit = '01021002-TRANSIT';
+                $ItrInTransit = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binTransit, $type);
+
+                if (empty($ItrInTransit)) {
+                return response()->json(['message' => 'No orders in ITR In Transit'], 404);
+                }
+
+                return response()->json($ItrInTransit);
+                 } catch (\Exception $e) {
+                 return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+                }
         }
 }

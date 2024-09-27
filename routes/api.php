@@ -68,6 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
              Route::get('/v2arreserve', [\App\Http\Controllers\Api\Outbound\ArReserveController::class, 'index']);
              Route::get('/v2itrout', [\App\Http\Controllers\Api\Outbound\ItrOutController::class, 'index']);
              Route::get('/v2salesorder', [\App\Http\Controllers\Api\Outbound\SalesOrderController::class, 'index']);
+             Route::get('/v2outboundnotintgrated', [\App\Http\Controllers\Api\Outbound\NotIntegratedController::class, 'index']);
 
 
              Route::get('/kendaraan', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'index']);
@@ -242,6 +243,7 @@ Route::get('/kaliurangitrinstorestatisticonscheduledetail', [\App\Http\Controlle
 Route::get('/kaliurangitrinorderreceived', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInOrderReceived']);
 Route::get('/kaliurangitrinbeingprocess', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInBeingProcess']);
 Route::get('/kaliurangitrinreadypickup', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrInReadyPickup']);
+Route::get('/kaliurangitrintransit', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class ,'getItrInDataDetailTransit']);
 
 
 Route::get('/kaliurangitroutstorestatistic', [\App\Http\Controllers\Api\Kaliurang\Inbound\StoreKaliurangController::class, 'getItrOut']);

@@ -14,7 +14,9 @@ class WarehouseKaliurangController extends Controller
 
     public function __construct()
     {
-        $this -> warehouse = '01021002';
+        
+         $this -> warehouse = '01021002';
+         //$this -> warehouse = '01007001';
     }
 
     public function getCashCarryPnd()
