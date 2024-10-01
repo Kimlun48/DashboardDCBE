@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/updateuser/{id}',[UserController::class, 'update']);
     Route::delete('/deleteuser/{id}',[UserController::class, 'destroy']);
     Route::get('/getcurrentuser', [UserController::class, 'getCurrentUser']);
+    Route::get('/userbranch', [UserController::class, 'userBranch']);
     //Route::put('/updateuser', [UserController::class, 'update']);
 
              Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);

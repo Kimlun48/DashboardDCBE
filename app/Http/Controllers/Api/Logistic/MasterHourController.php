@@ -35,16 +35,55 @@ class MasterHourController extends Controller
         ],200);
     }
 
-    public function store(Request $request)
+//     public function store(Request $request)
 
-    {
+//     {
+//     $validator = Validator::make($request->all(), [
+//         'mulai' => 'required|date_format:H:i',
+//         'akhir' => 'required|date_format:H:i',
+//         'jenis_aktivitas' => 'required|string',
+//         'status' => 'required|string',
+//         'slot' => 'required|integer',
+//         'jenis_jam' => 'required|string',
+//     ]);
+
+//     if ($validator->fails()) {
+//         return response()->json(['errors' => $validator->errors()], 422);
+//     }
+
+//     try {
+//         $masterhour = MasterHour::create([
+//             'mulai' => $request->mulai,
+//             'akhir' => $request->akhir,
+//             'jenis_aktivitas' => 'ON LOAD',
+//             'status' => 'AKTIF',
+//             'slot' => 1,
+//             'jenis_jam' => 'PER_30MNT',
+//         ]);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Insert data success',
+//             'data' => $masterhour
+//         ], 201);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Failed to insert data',
+//             'errors' => $e->getMessage()
+//         ], 500);
+//     }
+// }
+public function store(Request $request)
+{
+    // Validasi input dari frontend
     $validator = Validator::make($request->all(), [
-        'mulai' => 'required|date_format:H:i',
-        'akhir' => 'required|date_format:H:i',
         'jenis_aktivitas' => 'required|string',
-        'status' => 'required|string',
+        // 'status' => 'required|string',
         'slot' => 'required|integer',
         'jenis_jam' => 'required|string',
+        'branch' => 'required|string',
     ]);
 
     if ($validator->fails()) {
@@ -52,19 +91,54 @@ class MasterHourController extends Controller
     }
 
     try {
-        $masterhour = MasterHour::create([
-            'mulai' => $request->mulai,
-            'akhir' => $request->akhir,
-            'jenis_aktivitas' => $request->jenis_aktivitas,
-            'status' => $request->status,
-            'slot' => $request->slot,
-            'jenis_jam' => $request->jenis_jam,
-        ]);
+        // Tentukan interval berdasarkan input 'jenis_jam'
+        switch ($request->jenis_jam) {
+            case 'PER_60MNT':
+                $interval = new \DateInterval('PT60M');  // Interval 60 menit
+                break;
+            case 'PER_30MNT':
+                $interval = new \DateInterval('PT30M');  // Interval 30 menit
+                break;
+            case 'PER_15MNT':
+                $interval = new \DateInterval('PT15M');  // Interval 15 menit
+                break;
+            default:
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid time interval'
+                ], 400);
+        }
+
+        // Waktu mulai dan akhir
+        $startTime = new \DateTime('07:00');  // Waktu mulai
+        $endTime = new \DateTime('17:00');    // Waktu akhir
+
+        $times = [];
+        $status ="AKTIF";
+        
+        // Loop untuk setiap interval
+        while ($startTime < $endTime) {
+            $mulai = $startTime->format('H:i');
+            $akhir = $startTime->add($interval)->format('H:i');
+
+            // Buat record untuk setiap interval
+            $masterhour = MasterHour::create([
+                'mulai' => $mulai,
+                'akhir' => $akhir,
+                'jenis_aktivitas' => $request->jenis_aktivitas,
+                'status' => $status,
+                'slot' => $request->slot,
+                'jenis_jam' => $request->jenis_jam,
+                'branch' => $request->branch,
+            ]);
+
+            $times[] = $masterhour;
+        }
 
         return response()->json([
             'success' => true,
             'message' => 'Insert data success',
-            'data' => $masterhour
+            'data' => $times
         ], 201);
 
     } catch (\Exception $e) {
@@ -75,6 +149,8 @@ class MasterHourController extends Controller
         ], 500);
     }
 }
+
+
 
 
     /**
@@ -111,12 +187,13 @@ class MasterHourController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'mulai' => 'required|date_format:H:i:s',
-            'akhir' => 'required|date_format:H:i:s',
+            'mulai' => 'required|date_format:H:i',
+            'akhir' => 'required|date_format:H:i',
             'jenis_aktivitas' => 'required|string',
-            'status' => 'required|string',
+            // 'status' => 'required|string',
             'slot' => 'required|integer',
             'jenis_jam' => 'required|string',
+            'branch' => 'required|string',
         ]);
     
         if ($validator->fails()) {
@@ -130,9 +207,10 @@ class MasterHourController extends Controller
                 'mulai' => $request->mulai,
                 'akhir' => $request->akhir,
                 'jenis_aktivitas' => $request->jenis_aktivitas,
-                'status' => $request->status,
+                // 'status' => $request->status,
                 'slot' => $request->slot,
                 'jenis_jam' => $request->jenis_jam,
+                'branch' => $request->branch,
             ]);
     
             // Kembalikan respons sukses

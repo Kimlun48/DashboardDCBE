@@ -23,6 +23,8 @@ class UserController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'id_branch' => $user->id_branch,
+                'name_branch' => $user->name_branch,
                 'roles' => $user->roles->pluck('name')->toArray() // Ensures roles are in an array
             ]
         ]);
@@ -57,6 +59,8 @@ class UserController extends Controller
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|confirmed',
+        'id_branch' => 'required|max:100',
+        'name_branch' => 'required|max:255',
         'role' => 'required|string|exists:roles,name' 
     ]);
 
@@ -65,6 +69,8 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'id_branch' => $request->id_branch,
+            'name_branch' => $request->name_branch,
             'password' => Hash::make($request->password),
         ]);
 
@@ -92,6 +98,8 @@ class UserController extends Controller
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users,email,' . $id, 
         'password' => 'nullable|string|min:8|confirmed', 
+        'id_branch' => 'required|max:100',
+        'name_branch' => 'required|max:255',
         'role' => 'required|string|exists:roles,name'
     ]);
 
@@ -102,6 +110,8 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'id_branch' => $request->id_branch,
+            'name_branch' => $request->name_branch,
             'password' => $request->password ? Hash::make($request->password) : $user->password, 
         ]);
         $user->syncRoles([$request->role]);
@@ -149,6 +159,20 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function userBranch()
+    {
+        $userBranch = User::select('name_branch')
+                          ->distinct()
+                          ->orderBy('name_branch', 'asc') 
+                          ->get();
+    
+        return response()->json([
+            'success' => true,
+            'data' => $userBranch,
+        ], 200);
+    }
+    
 
 
 

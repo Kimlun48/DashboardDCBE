@@ -20,6 +20,7 @@ class MasterHour extends Model
         'jenis_aktivitas',
         'status',
         'slot',
+        'branch',
         'jenis_jam'
     ]);
     public $timestamps = false; 
