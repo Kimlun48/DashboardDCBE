@@ -342,4 +342,21 @@ class grpoWarehouseKaliurangController extends Controller
                  return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
                 }
         }
+
+        public function getItrInDataDetailTransitWarehouse()
+         {
+                try {
+                $type = '6';  
+                $binTransit = '01021001-TRANSIT';
+                $ItrInTransit = grpoWarehouseKaliurang::getGrpoWarehouseKaliurang($this->warehouse, $binTransit, $type);
+
+                if (empty($ItrInTransit)) {
+                return response()->json(['message' => 'No orders in ITR In Transit'], 404);
+                }
+
+                return response()->json($ItrInTransit);
+                 } catch (\Exception $e) {
+                 return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+                }
+        }
 }

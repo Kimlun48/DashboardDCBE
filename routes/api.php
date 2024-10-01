@@ -300,6 +300,7 @@ Route::get('/kaliurangitrinwarehousetatisticonscheduledetail', [\App\Http\Contro
 Route::get('/kaliurangitrinorderreceivedwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInOrderReceived']);
 Route::get('/kaliurangitrinbeingprocesswarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInBeingProcess']);
 Route::get('/kaliurangitrinreadypickupwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrInReadyPickup']);
+Route::get('/kaliurangitrintransitwarehouse', [\App\Http\Controllers\Api\Kaliurang\Warehouse\grpoWarehouseKaliurangController::class ,'getItrInDataDetailTransitWarehouse']);
 
 Route::get('/kaliurangitroutwarehousestatistic', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOut']);
 Route::get('/kaliurangwarehousetatisticitroutlate', [\App\Http\Controllers\Api\Kaliurang\Warehouse\WarehouseKaliurangController::class, 'getItrOutLate']);
