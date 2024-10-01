@@ -81,7 +81,7 @@ public function store(Request $request)
     $validator = Validator::make($request->all(), [
         'jenis_aktivitas' => 'required|string',
         // 'status' => 'required|string',
-        'slot' => 'required|integer',
+       // 'slot' => 'required|integer',
         'jenis_jam' => 'required|string',
         'branch' => 'required|string',
     ]);
@@ -115,6 +115,7 @@ public function store(Request $request)
 
         $times = [];
         $status ="AKTIF";
+        $slot = 2;
         
         // Loop untuk setiap interval
         while ($startTime < $endTime) {
@@ -127,7 +128,7 @@ public function store(Request $request)
                 'akhir' => $akhir,
                 'jenis_aktivitas' => $request->jenis_aktivitas,
                 'status' => $status,
-                'slot' => $request->slot,
+                'slot' => $slot,
                 'jenis_jam' => $request->jenis_jam,
                 'branch' => $request->branch,
             ]);
@@ -191,7 +192,7 @@ public function store(Request $request)
             'akhir' => 'required|date_format:H:i',
             'jenis_aktivitas' => 'required|string',
             // 'status' => 'required|string',
-            'slot' => 'required|integer',
+            //'slot' => 'required|integer',
             'jenis_jam' => 'required|string',
             'branch' => 'required|string',
         ]);
@@ -208,7 +209,7 @@ public function store(Request $request)
                 'akhir' => $request->akhir,
                 'jenis_aktivitas' => $request->jenis_aktivitas,
                 // 'status' => $request->status,
-                'slot' => $request->slot,
+                // 'slot' => $request->slot,
                 'jenis_jam' => $request->jenis_jam,
                 'branch' => $request->branch,
             ]);
