@@ -93,6 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/transaksireq_qr_all/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updateStatusScan']);
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
+            Route::get('/branch', [\App\Http\Controllers\Api\Logistic\UserBranchControlller::class, 'index']);
     
 });
 Route::get('/transaksireq_qr', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);

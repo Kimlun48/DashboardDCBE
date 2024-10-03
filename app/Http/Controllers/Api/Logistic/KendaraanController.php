@@ -45,6 +45,7 @@ class KendaraanController extends Controller
         $validator = Validator::make($request->all(), [
             'Jenis_Kendaraan' => 'required|string',
             'slot_Kendaraan' => 'required|integer',
+            'tipe_pallet' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -54,7 +55,8 @@ class KendaraanController extends Controller
         try {
             $kendaraan = Kendaraan::create([
                 'Jenis_Kendaraan' => $request->Jenis_Kendaraan,
-                'slot_Kendaraan' => $request->slot_Kendaraan
+                'slot_Kendaraan' => $request->slot_Kendaraan,
+                'tipe_pallet' => $request->tipe_pallet,
             ]);
 
             return response()->json([
@@ -108,6 +110,7 @@ class KendaraanController extends Controller
         $validator = Validator::make($request->all(), [
             'Jenis_Kendaraan' => 'required|string', // Pastikan tipe data yang benar
             'slot_Kendaraan' => 'required|integer',
+            'tipe_pallet' => 'required|string',
         ]);
     
         if ($validator->fails()) {
@@ -122,6 +125,7 @@ class KendaraanController extends Controller
             $kendaraan->update([
                 'Jenis_Kendaraan' => $request->Jenis_Kendaraan,
                 'slot_Kendaraan' => $request->slot_Kendaraan,
+                'tipe_pallet' => $request->tipe_pallet,
             ]);
     
             // Kembalikan respons sukses
