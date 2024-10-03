@@ -110,8 +110,8 @@ public function store(Request $request)
         }
 
         // Waktu mulai dan akhir
-        $startTime = new \DateTime('07:00');  // Waktu mulai
-        $endTime = new \DateTime('17:00');    // Waktu akhir
+        $startTime = new \DateTime('07:00');  
+        $endTime = new \DateTime('17:00');    
 
         $times = [];
         $status ="AKTIF";
@@ -188,8 +188,8 @@ public function store(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'mulai' => 'required|date_format:H:i',
-            'akhir' => 'required|date_format:H:i',
+            // 'mulai' => 'required|date_format:H:i',
+            // 'akhir' => 'required|date_format:H:i',
             'jenis_aktivitas' => 'required|string',
             // 'status' => 'required|string',
             //'slot' => 'required|integer',

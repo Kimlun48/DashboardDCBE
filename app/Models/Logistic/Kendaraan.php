@@ -16,7 +16,8 @@ class Kendaraan extends Model
     protected $fillable = ([
         'id_kendaraan',
         'Jenis_Kendaraan',
-        'slot_Kendaraan'
+        'slot_Kendaraan',
+        'tipe_pallet',
     ]);
     public $timestamps = false;
 }
