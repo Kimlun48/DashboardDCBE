@@ -110,8 +110,8 @@ public function store(Request $request)
         }
 
         // Waktu mulai dan akhir
-        $startTime = new \DateTime('07:00');  
-        $endTime = new \DateTime('17:00');    
+        $startTime = new \DateTime('08:00');  
+        $endTime = new \DateTime('16:00');    
 
         $times = [];
         $status ="AKTIF";
