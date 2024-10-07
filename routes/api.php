@@ -87,17 +87,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
             Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
             Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
-            Route::get('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);
-            Route::put('/transaksireq/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'update']);
-            Route::put('/transaksireq_qr_inbound/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCodeInbound']);
-            Route::put('/transaksireq_qr_all/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updateStatusScan']);
+            Route::get('/transaksireq_jadwal/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'showsechedule']);
+            Route::get('/transaksireq/{id_req}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);
+            Route::put('/transaksireq/{id_req}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'update']);
+            Route::put('/transaksireq_qr_inbound/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCodeInbound']);
+            Route::put('/transaksireq_qr_all/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updateStatusScan']);
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
             Route::get('/branch', [\App\Http\Controllers\Api\Logistic\UserBranchControlller::class, 'index']);
     
 });
 Route::get('/transaksireq_qr', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
-Route::middleware([])->put('/transaksireq_qr/{id_jadwal}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
+Route::put('/transaksireq_qr/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
 Route::get('/dashinbound', [\App\Http\Controllers\Api\DashInboundController::class, 'index']);
 Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreController::class, 'index']);
 

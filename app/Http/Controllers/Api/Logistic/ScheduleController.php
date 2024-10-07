@@ -17,7 +17,7 @@ class ScheduleController extends Controller
     public function index() 
     {
         try {
-            $schedule = Schedule::orderBy('id', 'desc')->get();
+            $schedule = Schedule::orderBy('id', 'asc')->get();
             
             return response()->json([
                 'success' => true,
@@ -159,6 +159,7 @@ class ScheduleController extends Controller
     $existingDays = [];
     $available = 'AVAILABLE';
     $off = 'OFF';
+   
 
     DB::transaction(function () use ($masterHours, $year, $month, $totalDays, $slot, $available, $off, &$existingDays) {
         for ($day = 1; $day <= $totalDays; $day++) {
@@ -178,6 +179,7 @@ class ScheduleController extends Controller
         if (empty($existingDays)) {  // Jika tidak ada jadwal yang sama, buat jadwal baru
             for ($day = 1; $day <= $totalDays; $day++) {
                 $hari = Carbon::createFromDate($year, $month, $day)->format('Y-m-d');
+                $booked = 0;
 
                 foreach ($masterHours as $hour) {
                     $status = $hour->jenis_aktivitas === 'ON LOAD' ? $available : $off;
@@ -190,6 +192,7 @@ class ScheduleController extends Controller
                         'slot' => $status === $available ? $slot : 0,  // Set slot ke 0 jika status off
                         'available_slot' => $status === $available ? $slot : 0,  // Set available_slot ke 0 jika status off
                         'status' => $status,
+                        'is_booked' => $booked,
                     ]);
                 }
             }

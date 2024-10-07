@@ -12,6 +12,8 @@ class User extends Model
 {
     use HasFactory,Notifiable, HasApiTokens, HasRoles, Notifiable;
 
+    protected $guard_name ='api';
+
     protected $fillable = [
         'name',
         'email',
@@ -29,6 +31,11 @@ class User extends Model
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function refreshTokens()
+    {
+        return $this->hasMany(RefreshToken::class);
     }
 
     /**

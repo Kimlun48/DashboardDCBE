@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\admin\user;
-use App\Models\admin\User as AdminUser;
+use App\Models\admin\User;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UserController extends Controller
 {
@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function getCurrentUser(Request $request)
     {
-        $user = $request->user();
+        $user = $request->User();
         
         return response()->json([
             'data' => [
@@ -32,24 +32,33 @@ class UserController extends Controller
 
     public function index()
     {
-    $role = auth()->user()->getRoleNames();
+        try {
+            $role = auth()->user()->getRoleNames();
 
-    if ($role[0] == 'admin') {
-        // Jika role adalah admin, ambil semua user
-        $users = User::when(request()->q, function($query) {
-            $query->where('name', 'like', '%' . request()->q . '%');
-        })->with('roles')->latest()->get();
-    } else {
-        // Jika bukan admin, ambil user berdasarkan ID sendiri (user yang sedang login)
-        $users = User::when(request()->q, function($query) {
-            $query->where('name', 'like', '%' . request()->q . '%');
-        })->where('id', auth()->user()->id)->with('roles')->latest()->get();
-    }
-
-    return response([
-        'success' => true,
-        'data' => $users
-    ], 200);
+            if ($role[0] == 'super_admin') {
+                // Jika role adalah admin, ambil semua user
+                $users = User::when(request()->q, function($query) {
+                    $query->where('name', 'like', '%' . request()->q . '%');
+                })->with('roles')->latest()->get();
+            } else {
+                // Jika bukan admin, ambil user berdasarkan ID sendiri (user yang sedang login)
+                $users = User::when(request()->q, function($query) {
+                    $query->where('name', 'like', '%' . request()->q . '%');
+                })->where('id', auth()->user()->id)->with('roles')->latest()->get();
+            }
+        
+            return response([
+                'success' => true,
+                'data' => $users
+            ], 200);
+            
+        } 
+        catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to find user',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function create(Request $request)

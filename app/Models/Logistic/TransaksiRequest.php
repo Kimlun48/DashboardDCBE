@@ -26,14 +26,15 @@ class TransaksiRequest extends Model
         'status',
         'date_arrived',
         'date_completed',
-        'date_loading_goods'
+        'date_loading_goods',
+        'date_checkout_security'
 
     ];
     // public $timestamps = false; 
 
     public function schedule () 
     {
-        return $this->belongsTo(Schedule::class, 'id_jadwal', 'id');
+        return $this->belongsTo(Schedule::class, 'id_req', 'id');
     } 
 
    
