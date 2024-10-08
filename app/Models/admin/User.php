@@ -18,6 +18,8 @@ class User extends Model
         'name',
         'email',
         'password',
+        'id_branch',
+        'name_branch'
     ];
 
     protected $hidden = [

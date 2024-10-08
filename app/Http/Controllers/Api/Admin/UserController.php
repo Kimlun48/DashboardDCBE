@@ -35,7 +35,7 @@ class UserController extends Controller
         try {
             $role = auth()->user()->getRoleNames();
 
-            if ($role[0] == 'super_admin') {
+            if ($role[0] == 'admin') {
                 // Jika role adalah admin, ambil semua user
                 $users = User::when(request()->q, function($query) {
                     $query->where('name', 'like', '%' . request()->q . '%');
