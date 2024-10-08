@@ -13,7 +13,7 @@ class TransaksiRequestController extends Controller
     public function index()
     {
         try {
-            $transaksirequests = TransaksiRequest::with('schedule')->orderBy('updated_at', 'desc')->get();
+            $transaksirequests = TransaksiRequest::with('schedule1')->orderBy('updated_at', 'desc')->get();
                
     
             return response()->json([
@@ -32,7 +32,7 @@ class TransaksiRequestController extends Controller
     public function showsechedule ($id_jadwal) 
     {
         //$transaksirequest = TransaksiRequest::find($id_jadwal);//
-        $transaksirequests = TransaksiRequest::with('schedule')->where('id_jadwal', $id_jadwal)->get();
+        $transaksirequests = TransaksiRequest::with('schedule1')->where('id_jadwal', $id_jadwal)->get();
         if ($transaksirequests){
             return response()->json([
                 'success' => true,
@@ -370,6 +370,41 @@ public function updatescanqrCode(Request $request, $id_req) {
             'message' => 'Status updated successfully!',
             'data' => $transaksiRequest
         ], 200);
+    }
+
+
+    public function logdoc ()
+    {
+        try {
+            $transaksiRequest = TransaksiRequest::with('logdoc')->orderBy('id_req', 'desc')->get();
+            // return new LogisticDocUploadResource(true, 'Data Log Doc', $logisticdocupload);
+            return response()->json([
+                'success' => true,
+                'data' => $transaksiRequest,
+            ],200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve data',
+                'errors' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function sechedulelogdoc ($id_req) 
+    {
+        //$transaksirequest = TransaksiRequest::find($id_jadwal);//
+        $transaksirequests = TransaksiRequest::with('logdoc')->where('id_req', $id_req)->get();
+        if ($transaksirequests){
+            return response()->json([
+                'success' => true,
+                'data' => $transaksirequests,
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'data not found',
+        ], 404);
     }
 }
 

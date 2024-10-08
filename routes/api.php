@@ -77,6 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
              Route::post('/kendaraan', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'store']);
              Route::put('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'update']);
              Route::delete('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'destroy']);
+           //  Route::get('/logdoc', [App\Http\Controllers\Api\Logistic\LogisticDocUploadController::class, 'index']);
            // Route::resource('/kendaraan', App\Http\Controllers\Api\Logistic\KendaraanController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
 
            Route::get('/masterhour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'index']);
@@ -92,6 +93,9 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/transaksireq/{id_req}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'update']);
             Route::put('/transaksireq_qr_inbound/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCodeInbound']);
             Route::put('/transaksireq_qr_all/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updateStatusScan']);
+            Route::get('/logdoc',[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'logdoc']);
+            Route::get('/transaksilogdoc/{id_req}',[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'sechedulelogdoc']);
+
             Route::get('/hour', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'hour']);
             Route::post('/generate-schedule', [App\Http\Controllers\Api\Logistic\ScheduleController::class, 'generateSchedule']);
             Route::get('/branch', [\App\Http\Controllers\Api\Logistic\UserBranchControlller::class, 'index']);
