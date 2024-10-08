@@ -34,7 +34,7 @@ class TransaksiRequest extends Model
 
     public function schedule () 
     {
-        return $this->belongsTo(Schedule::class, 'id_req', 'id');
+        return $this->belongsTo(Schedule::class, 'id_jadwal', 'id');
     } 
 
    
