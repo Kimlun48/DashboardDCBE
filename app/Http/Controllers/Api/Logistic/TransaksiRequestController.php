@@ -13,7 +13,7 @@ class TransaksiRequestController extends Controller
     public function index()
     {
         try {
-            $transaksirequests = TransaksiRequest::with('schedule1')->orderBy('updated_at', 'desc')->get();
+            $transaksirequests = TransaksiRequest::with('schedule')->orderBy('updated_at', 'desc')->get();
                
     
             return response()->json([
