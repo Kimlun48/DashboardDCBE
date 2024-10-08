@@ -27,4 +27,9 @@ class Schedule extends Model
     {
         return $this->hasMany(TransaksiRequest::class, 'id_jadwal', 'id');
     }
+
+    public function transaksiRequest1()
+    {
+        return $this->hasMany(TransaksiRequest::class, 'id_req', 'id');
+    }
 }
