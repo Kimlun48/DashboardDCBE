@@ -10,9 +10,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Model
 {
-    use HasFactory,Notifiable, HasApiTokens, HasRoles, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
-    protected $guard_name ='api';
+    protected $guard_name = 'api';
 
     protected $fillable = [
         'name',
@@ -40,16 +40,10 @@ class User extends Model
         return $this->hasMany(RefreshToken::class);
     }
 
-    /**
-     * getPermissionArray
-     *
-     * @return void
-     */
     public function getPermissionArray()
     {
         return $this->getAllPermissions()->mapWithKeys(function($pr){
             return [$pr['name'] => true];
         });
-   
     }
 }

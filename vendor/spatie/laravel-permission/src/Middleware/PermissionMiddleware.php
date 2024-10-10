@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Guard;
+use Illuminate\Auth\Access\AuthorizationException;
+
 
 class PermissionMiddleware
 {
@@ -32,8 +34,12 @@ class PermissionMiddleware
             ? $permission
             : explode('|', $permission);
 
-        if (! $user->canAny($permissions)) {
-            throw UnauthorizedException::forPermissions($permissions);
+        // if (! $user->canAny($permissions)) {
+        //     throw UnauthorizedException::forPermissions($permissions);
+        // }
+        if (!$user->hasAnyPermission($permissions)) {
+             throw UnauthorizedException::forPermissions($permissions);
+            //throw new AuthorizationException('Unauthorized access.');
         }
 
         return $next($request);
