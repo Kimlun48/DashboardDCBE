@@ -187,12 +187,14 @@ public function refresh(Request $request)
     }
 
     // Generate access token baru
-    $newAccessToken = $user->createToken('Access Token')->plainTextToken;
+    $accessTokenName = env('ACCESS_TOKEN_NAME', 'DashboardDC');
+    $accessTokenExpiry = env('ACCESS_TOKEN_EXPIRY_MINUTES', 60);
+    $newAccessToken = $user->createToken($accessTokenName)->plainTextToken;
 
     return response()->json([
         'success' => true,
         'access_token' => $newAccessToken,
-        'expires_at' => now()->addMinutes(60)->toISOString(), // Atur waktu kedaluwarsa untuk access token baru
+        'expires_at' => now()->addMinutes($accessTokenExpiry)->toISOString(), // Atur waktu kedaluwarsa untuk access token baru
     ]);
 }
 

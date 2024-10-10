@@ -18,6 +18,7 @@ class Kendaraan extends Model
         'Jenis_Kendaraan',
         'slot_Kendaraan',
         'tipe_pallet',
+        'tipe_kendaraan',
     ]);
     public $timestamps = false;
 }

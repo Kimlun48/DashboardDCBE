@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\IlsController;
 use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\Admin\PermissionController;
+use App\Http\Controllers\Api\Admin\RoleController;
+
 use App\Models\admin\User;
 
 /*
@@ -55,6 +58,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/deleteuser/{id}',[UserController::class, 'destroy']);
     Route::get('/getcurrentuser', [UserController::class, 'getCurrentUser']);
     Route::get('/userbranch', [UserController::class, 'userBranch']);
+    // Route::get('/permission', [PermissionController::class, 'invoke']);
+    Route::get('/permissions', PermissionController::class)
+            ->name('account.permissions.index')
+            ->middleware('permission:permissions.index');
+    Route::resource('/roles', RoleController::class)
+            ->middleware('permission:roles.index|roles.create|roles.edit|roles.delete');
     //Route::put('/updateuser', [UserController::class, 'update']);
 
              Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
@@ -77,6 +86,7 @@ Route::middleware('auth:sanctum')->group(function () {
              Route::post('/kendaraan', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'store']);
              Route::put('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'update']);
              Route::delete('/kendaraan/{id_kendaraan}', [App\Http\Controllers\Api\Logistic\KendaraanController::class, 'destroy']);
+             Route::get('/masterkendaraan', [\App\Http\Controllers\Api\Logistic\MasterKendaraanController::class, 'index']);
            //  Route::get('/logdoc', [App\Http\Controllers\Api\Logistic\LogisticDocUploadController::class, 'index']);
            // Route::resource('/kendaraan', App\Http\Controllers\Api\Logistic\KendaraanController::class, ['except' => ['create', 'show', 'edit', 'update'], 'as' => 'admin']);
 
