@@ -9,61 +9,92 @@ use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {
-    // public function __invoke()
-    // {
-    //     $permission = Permission::when(request()->q, function($permission) {
-    //         $permission = $permission->where('name', 'like', '%'. request()->q. '%');
-    //     })->latest()->pagnation(5);
-
-    //     $permission -> appends(['q'=>request()->q]);
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => $permission,
-    //     ], 200);
-    // }
-
-    // public function __invoke()
-    // {
-    //     // Fetch permission with optional search query and pagination
-    //     $permission = Permission::when(request()->q, function($query) {
-    //         return $query->where('name', 'like', '%'. request()->q . '%');
-    //     })->latest()->paginate(5);
-
-    //     // Append query parameter to the pagination links
-    //     $permission->appends(['q' => request()->q]);
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => $permission,
-    //     ], 200);
-    // }
+    
 
     public function __invoke(Request $request)
     {
-       
 
-        // Mengambil permission dengan pencarian berdasarkan query
         $permissions = Permission::when($request->q, function ($query) {
             return $query->where('name', 'like', '%' . request()->q . '%');
-        })->latest()->paginate(5);
+        })
+        ->orderBy('id', 'asc') 
+        ->get();
 
-        // Menambahkan parameter query ke pagination
-        $permissions->appends(['q' => $request->q]);
-
+    
         return response()->json([
             'success' => true,
             'data' => $permissions,
         ], 200);
-
-
-        // $permissions = Permission::when($request->q, function ($query) {
-        //     return $query->where('name', 'like', '%' . request()->q . '%');
-        // })->latest()->get(); // Ganti paginate(5) dengan get()
-    
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $permissions,
-        // ], 200);
     }
+
+    public function store(Request $request)
+    {
+    $this->validate($request, [
+        'name' => 'required|string|max:255|unique:permissions,name',
+      
+    ]);
+
+   
+    $guard_name = "api";
+    $permission = Permission::create([
+        'name' => $request->name,
+        'guard_name' => $guard_name,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Permission created successfully.',
+        'data' => $permission,
+    ], 201);
+    }
+
+    public function destroy($id)
+    {
+       
+        try {
+            $permission = Permission::findOrFail($id);
+    
+            $permission->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Permission deleted successfully.',
+            ], 200); 
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting permission: ' . $e->getMessage(),
+            ], 500); 
+        }
+    }
+
+    public function update(Request $request, $id)
+{
+   
+    $this->validate($request, [
+        'name' => 'required|string|max:255|unique:permissions,name,' . $id,
+    ]);
+
+    try {
+      
+        $permission = Permission::findOrFail($id);
+        $permission->name = $request->name;
+        $permission->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Permission updated successfully.',
+            'data' => $permission,
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error updating permission: ' . $e->getMessage(),
+        ], 500);
+    }
+}
+
+    
+
+
 }

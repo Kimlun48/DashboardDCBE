@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\TryCatch;
 
+
 class UserController extends Controller
 {
 
@@ -30,18 +31,31 @@ class UserController extends Controller
         ]);
     }
 
+    public function getUserPermissions(Request $request)
+{
+    $user = auth()->user();
+    $roles = $user->getRoleNames(); 
+    $permissions = $user->getAllPermissions()->pluck('name'); 
+
+    return response()->json([
+        'roles' => $roles,
+        'permissions' => $permissions
+    ]);
+}
+
+
     public function index()
     {
         try {
             $role = auth()->user()->getRoleNames();
 
             if ($role[0] == 'super_admin') {
-                // Jika role adalah admin, ambil semua user
+                
                 $users = User::when(request()->q, function($query) {
                     $query->where('name', 'like', '%' . request()->q . '%');
                 })->with('roles')->latest()->get();
             } else {
-                // Jika bukan admin, ambil user berdasarkan ID sendiri (user yang sedang login)
+               
                 $users = User::when(request()->q, function($query) {
                     $query->where('name', 'like', '%' . request()->q . '%');
                 })->where('id', auth()->user()->id)->with('roles')->latest()->get();

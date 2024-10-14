@@ -6,62 +6,75 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Http\JsonResponse;
 
 class RoleController extends Controller
 {
+    
     public function index()
     {
-         //get roles
-         $roles = Role::when(request()->q, function($roles) {
-            $roles = $roles->where('name', 'like', '%'. request()->q . '%');
-        })->with('permissions')->latest()->paginate(5);
 
-        //append query string to pagination links
-        $roles->appends(['q' => request()->q]);
+  $role = auth()->user()->getRoleNames();
 
-        return response()->json([
-            'success' => true,
-            'data' => $roles,
+  try {
+    if ($role[0] == 'super_admin'){
+        $roles = Role::when(request()->q, function($query) {
+            return $query->where('name', 'like', '%' . request()->q . '%');
+        })
+        ->with('permissions')
+        ->orderBy('id', 'asc') 
+        ->get(); 
+    } else {
+        $roles = Role::when(request()->q, function($query) {
+            return $query->where('name', 'like', '%' . request()->q . '%');
+        }) ->where('id', auth()->user()->id)
+        ->with('permissions')
+        ->orderBy('id', 'asc') 
+        ->get(); 
+    }
+
+    return response()->json([
+        'success' => true,
+        'data' => $roles,
         ], 200);
+
+  } catch (\Throwable $th) {
+    return response()->json([
+        'error' => 'Failed to find user',
+        'message' => $e->getMessage()
+    ], 500);
+  }
+      
+    // $roles = Role::when(request()->q, function($query) {
+    //     return $query->where('name', 'like', '%' . request()->q . '%');
+    // })
+    // ->with('permissions')
+    // ->orderBy('id', 'asc') 
+    // ->get(); 
+
+    // return response()->json([
+    // 'success' => true,
+    // 'data' => $roles,
+    // ], 200);
         
     }
 
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    // public function index(Request $request)
-    // {
-    //     // Get roles with optional search query
-    //     $roles = Role::when($request->q, function ($query) use ($request) {
-    //         return $query->where('name', 'like', '%' . $request->q . '%');
-    //     })->with('permissions')->latest()->paginate(5);
 
-    //     // Append query string to pagination links
-    //     $roles->appends(['q' => $request->q]);
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => $roles,
-    //     ]);
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function create()
+    public function create(Request $request): JsonResponse
     {
-        // Get all permissions
-        $permissions = Permission::all();
+        
+        $request->validate([
+            'name' => 'required|string|unique:roles,name',
+        ]);
+
+       
+        $role = Role::create(['name' => $request->name, 'guard_name' => 'api']);
 
         return response()->json([
             'success' => true,
-            'data' => $permissions,
-        ]);
+            'data' => $role,
+        ], 201);
     }
 
     /**
@@ -70,26 +83,42 @@ class RoleController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+   
+        public function store(Request $request)
     {
-        // Validate request
-        $this->validate($request, [
-            'name' => 'required|string|max:255|unique:roles,name',
-            'permissions' => 'required|array',
-        ]);
+    /**
+     * Validate request
+     */
+    $request->validate([
+        'name'        => 'required|string|max:255',
+        'permissions' => 'required|array', 
+        'permissions.*' => 'string', 
+    ]);
 
-        // Create role
-        $role = Role::create(['name' => $request->name]);
+    try {
+       
+        $guard_name = 'api';
+        $role = Role::create(['name' => $request->name, 'guard_name' => $guard_name]);
 
-        // Assign permissions to role
+        
         $role->givePermissionTo($request->permissions);
 
+        
         return response()->json([
             'success' => true,
-            'message' => 'Role created successfully.',
-            'data' => $role,
-        ], 201);
+            'message' => 'Role created successfully',
+            'data'    => $role
+        ], 201); 
+    } catch (\Exception $e) {
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to create role',
+            'error'   => $e->getMessage()
+        ], 500); 
     }
+}
+    
 
     /**
      * Show the specified resource.
@@ -99,7 +128,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        // Get role
+        
         $role = Role::with('permissions')->findOrFail($id);
 
         return response()->json([
@@ -108,13 +137,8 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Role $role
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+
     public function update(Request $request, Role $role)
     {
         // Validate request
@@ -122,19 +146,33 @@ class RoleController extends Controller
             'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
             'permissions' => 'required|array',
         ]);
-
-        // Update role
-        $role->update(['name' => $request->name]);
-
-        // Sync permissions
-        $role->syncPermissions($request->permissions);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Role updated successfully.',
-            'data' => $role,
-        ]);
+    
+        try {
+            // Update role
+            $role->update([
+                'name' => $request->name,
+                'guard_name' => 'api',
+            ]);
+    
+            // Sync permissions to role (overwrite existing permissions)
+            $role->syncPermissions($request->permissions);
+    
+            // Return success response as JSON
+            return response()->json([
+                'success' => true,
+                'message' => 'Role updated successfully',
+                'data' => $role
+            ], 200); // Status 200 untuk OK
+        } catch (\Exception $e) {
+            // Return error response if something goes wrong
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update role',
+                'error' => $e->getMessage()
+            ], 500); // Status 500 untuk Server Error
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -144,15 +182,25 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        // Find role by ID
+        // Temukan role berdasarkan ID
         $role = Role::findOrFail($id);
-
-        // Delete role
+    
+        // Hapus role
         $role->delete();
-
+    
         return response()->json([
             'success' => true,
             'message' => 'Role deleted successfully.',
         ]);
     }
+
+    public function getRole()
+    {
+        $roles = Role::all();
+        return response()->json([
+            'success' => true,
+            'data' => $roles,
+            ], 200);
+    }
+    
 }

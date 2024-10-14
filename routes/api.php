@@ -58,12 +58,30 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/deleteuser/{id}',[UserController::class, 'destroy']);
     Route::get('/getcurrentuser', [UserController::class, 'getCurrentUser']);
     Route::get('/userbranch', [UserController::class, 'userBranch']);
-    // Route::get('/permission', [PermissionController::class, 'invoke']);
+    Route::get('/userpermission', [UserController::class, 'getUserPermissions']);
+   
     Route::get('/permissions', PermissionController::class)
-            ->name('account.permissions.index')
-            ->middleware('permission:permissions.index');
-    Route::resource('/roles', RoleController::class)
-            ->middleware('permission:roles.index|roles.create|roles.edit|roles.delete');
+        ->name('account.permissions.index')
+        ->middleware('permission:permissions.index'); 
+
+    Route::post('/permissions', [PermissionController::class, 'store'])
+        ->middleware('permission:permissions.create'); 
+
+    Route::delete('/permissions/{id}', [PermissionController::class, 'destroy'])
+        ->middleware('permission:permissions.delete'); 
+
+    Route::put('/permissions/{id}', [PermissionController::class, 'update'])
+        ->middleware('permission:permissions.update'); 
+
+    // Route::resource('/roles', RoleController::class)
+    // ->middleware('permission:roles.index|roles.create|roles.edit|roles.delete');
+    Route::get('/roles', [RoleController::class, 'index'])->middleware('permission:roles.index');
+    Route::post('/roles', [RoleController::class, 'store'])->middleware('permission:roles.create');
+    Route::get('/roles/{role}', [RoleController::class, 'show'])->middleware('permission:roles.show');
+    Route::put('/roles/{role}', [RoleController::class, 'update'])->middleware('permission:roles.edit');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->middleware('permission:roles.delete');
+    Route::get('/getrole', [RoleController::class, 'getRole']);
+
     //Route::put('/updateuser', [UserController::class, 'update']);
 
              Route::get('/v2po' ,[\App\Http\Controllers\Api\Inbound\PoController::class, 'index']);
@@ -111,10 +129,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/branch', [\App\Http\Controllers\Api\Logistic\UserBranchControlller::class, 'index']);
     
 });
-Route::get('/transaksireq_qr', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
-Route::put('/transaksireq_qr/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCode']);
-Route::get('/dashinbound', [\App\Http\Controllers\Api\DashInboundController::class, 'index']);
-Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreController::class, 'index']);
+    ##scan security
+            Route::get('/transaksireq_qr', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
+            Route::get('/transaksireq_qr/{id_req}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'showVendor']);
+            Route::put('/transaksireq_qr/{id_req}' ,[\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'updatescanqrCodeSecurity']);
+
+            Route::get('/dashinbound', [\App\Http\Controllers\Api\DashInboundController::class, 'index']);
+            Route::get('/dashboardstore', [\App\Http\Controllers\Api\DashboardStoreController::class, 'index']);
 
 ##inbound
 ##itrin

@@ -8,10 +8,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Model
 {
     use HasFactory, Notifiable, HasApiTokens, HasRoles;
-
+    
     protected $guard_name = 'api';
 
     protected $fillable = [
