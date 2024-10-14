@@ -201,40 +201,18 @@ public function refresh(Request $request)
     
 
 
-// public function logout(Request $request)
-// {
-//     // Menghapus semua token yang terkait dengan pengguna
-//     $request->user()->tokens()->delete(); 
-
-//     // Jika Anda menyimpan refresh token secara terpisah
-//     $request->user()->refreshTokens()->delete(); 
-
-//     return response()->json([
-//         'success' => true
-//     ], 200);
-// }
-
 public function logout(Request $request)
 {
-    // Mendapatkan token yang digunakan untuk login
-    $token = $request->user()->currentAccessToken();
+    // Menghapus semua token yang terkait dengan pengguna
+    $request->user()->tokens()->delete(); 
 
-    // Jika ada token, hapus token tersebut
-    if ($token) {
-        $token->delete();
-    }
-
-    // Jika Anda menyimpan refresh token secara terpisah, dapatkan refresh token yang sesuai dan hapus
-    $refreshToken = $request->user()->refreshTokens()->where('token_id', $token->id)->first();
-    if ($refreshToken) {
-        $refreshToken->delete();
-    }
+    // Jika Anda menyimpan refresh token secara terpisah
+    $request->user()->refreshTokens()->delete(); 
 
     return response()->json([
         'success' => true
     ], 200);
 }
-
 
 
     // public function refresh(Request $request)
