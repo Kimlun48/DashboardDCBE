@@ -125,6 +125,9 @@ public function login(Request $request)
     
     $user = User::where('name', $request->name)->with('roles')->first();
 
+    if ($user && $user->is_online) {
+        return response()->json(['message' => 'User already logged in'], 403);
+    }
     
     if (!$user || !Hash::check($request->password, $user->password)) {
         return response()->json([
@@ -133,7 +136,11 @@ public function login(Request $request)
         ], 401); 
     }
 
+    $user->is_online = true;
+    $user->save();
+
     
+
     $accessTokenName = env('ACCESS_TOKEN_NAME', 'DashboardDC');
     $accessToken = $user->createToken($accessTokenName)->plainTextToken;
 
@@ -203,15 +210,36 @@ public function refresh(Request $request)
 
 public function logout(Request $request)
 {
-    // Menghapus semua token yang terkait dengan pengguna
-    $request->user()->tokens()->delete(); 
+    
+    // // Menghapus semua token yang terkait dengan pengguna
+    // $request->user()->tokens()->delete(); 
 
-    // Jika Anda menyimpan refresh token secara terpisah
-    $request->user()->refreshTokens()->delete(); 
+    // // Jika Anda menyimpan refresh token secara terpisah
+    // $request->user()->refreshTokens()->delete(); 
 
-    return response()->json([
-        'success' => true
-    ], 200);
+    // return response()->json([
+    //     'success' => true
+    // ], 200);
+    
+     $user = $request->user();
+
+     
+     $user->tokens()->delete(); 
+ 
+     
+     if (method_exists($user, 'refreshTokens')) {
+         $user->refreshTokens()->delete();
+     }
+ 
+    
+     $user->is_online = false;
+     $user->save();
+ 
+   
+     return response()->json([
+         'success' => true,
+         'message' => 'Logout successful'
+     ], 200);
 }
 
 
