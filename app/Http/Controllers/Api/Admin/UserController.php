@@ -129,6 +129,9 @@ class UserController extends Controller
     try {
         $user = User::findOrFail($id);
 
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Current password is incorrect'], 400);
+        }
         
         $user->update([
             'name' => $request->name,

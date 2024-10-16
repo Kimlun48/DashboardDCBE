@@ -59,6 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getcurrentuser', [UserController::class, 'getCurrentUser']);
     Route::get('/userbranch', [UserController::class, 'userBranch']);
     Route::get('/userpermission', [UserController::class, 'getUserPermissions']);
+
+    // Route::get('/userpermission', [UserController::class, 'getUserPermissions'])
+    //     ->name('account.userpermissions.index')
+    //     ->middleware('usepermission:userpermissions.index'); 
    
     Route::get('/permissions', PermissionController::class)
         ->name('account.permissions.index')
