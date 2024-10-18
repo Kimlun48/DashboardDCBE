@@ -11,6 +11,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use App\Models\admin\RefreshToken;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -211,19 +212,7 @@ public function refresh(Request $request)
 public function logout(Request $request)
 {
     
-    // // Menghapus semua token yang terkait dengan pengguna
-    // $request->user()->tokens()->delete(); 
-
-    // // Jika Anda menyimpan refresh token secara terpisah
-    // $request->user()->refreshTokens()->delete(); 
-
-    // return response()->json([
-    //     'success' => true
-    // ], 200);
-    
      $user = $request->user();
-
-     
      $user->tokens()->delete(); 
  
      
@@ -240,6 +229,16 @@ public function logout(Request $request)
          'success' => true,
          'message' => 'Logout successful'
      ], 200);
+}
+
+public function updateStatus(Request $request)
+{
+    
+    $user = $request->user();
+    $user->is_online = $request->is_online;
+    $user->save();
+
+    return response()->json(['message' => 'Status updated successfully']);
 }
 
 

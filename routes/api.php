@@ -49,9 +49,12 @@ Route::middleware('auth:sanctum')->group(function () {
    // Route::get('/user', [LoginController::class, 'user']);
    // Route::get('/ils', [IlsController::class, 'index']);
     Route::post('/refresh', [LoginController::class, 'refresh']);
+    Route::put('/update-status',[LoginController::class, 'updateStatus']);
     Route::get('/user', function (Request $request) {
                  return $request->user();
              });
+    
+    Route::put('/update_status_offline/{id}', [UserController::class, 'updateStatusOffline']);
     Route::get('/getuser', [UserController::class, 'index']);
     Route::post('/createuser',[UserController::class, 'create']);
     Route::put('/updateuser/{id}',[UserController::class, 'update']);
