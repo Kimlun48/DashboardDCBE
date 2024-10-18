@@ -156,6 +156,24 @@ class UserController extends Controller
     }
 }
 
+    public function updateStatusOffline($id) {
+       
+        try {
+            $user = User::findOrFail($id);
+            $user->update([
+             'is_online' => false,
+              ]);
+             return response()->json([
+                'message' => 'Status updated successfully'
+                ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to update user',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
     public function destroy($id)
     {
