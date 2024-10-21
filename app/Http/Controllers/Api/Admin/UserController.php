@@ -160,6 +160,7 @@ class UserController extends Controller
        
         try {
             $user = User::findOrFail($id);
+
             $user->update([
              'is_online' => false,
               ]);
