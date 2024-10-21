@@ -309,7 +309,7 @@ public function updatescanqrCodeSecurity(Request $request, $id_req) {
     //         'message' => 'Update is only allowed more than 30 minutes before the schedule starts.',
     //     ], 403);
     // }
-
+//validasi scan ontime
     // if ($now->greaterThan($scheduleStart)) {
     //     return response()->json([
     //         'success' => false,
