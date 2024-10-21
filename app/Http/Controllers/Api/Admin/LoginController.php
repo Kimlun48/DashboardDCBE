@@ -152,12 +152,8 @@ public function login(Request $request)
     $user->refreshTokens()->create([
         'token' => hash('sha256', $refreshToken),
         'expires_at' => now()->addDays(1), 
-    ]);
-
-    
+    ]);    
     $permissions = $user->getPermissionArray();
-
-   
     $response = [
         'success' => true,
         'user' => $user,
@@ -173,28 +169,24 @@ public function login(Request $request)
 
 public function refresh(Request $request)
 {
-    // Validasi input untuk memastikan refresh_token ada
+   
     $request->validate([
         'refresh_token' => 'required|string',
     ]);
 
-    // Cari refresh token di database
+   
     $refreshToken = RefreshToken::where('token', hash('sha256', $request->refresh_token))->first();
 
-    // Cek apakah token ditemukan dan belum kedaluwarsa
+   
     if (!$refreshToken || $refreshToken->expires_at < now()) {
         return response()->json(['error' => 'Refresh token is invalid or expired'], 401);
     }
-
-    // Cari user berdasarkan ID dari refresh token
     $user = User::find($refreshToken->user_id);
 
-    // Cek jika pengguna tidak ditemukan
     if (!$user) {
         return response()->json(['error' => 'User not found'], 404);
     }
 
-    // Generate access token baru
     $accessTokenName = env('ACCESS_TOKEN_NAME', 'DashboardDC');
     $accessTokenExpiry = env('ACCESS_TOKEN_EXPIRY_MINUTES', 60);
     $newAccessToken = $user->createToken($accessTokenName)->plainTextToken;
@@ -231,15 +223,7 @@ public function logout(Request $request)
      ], 200);
 }
 
-public function updateStatus(Request $request)
-{
-    
-    $user = $request->user();
-    $user->is_online = $request->is_online;
-    $user->save();
 
-    return response()->json(['message' => 'Status updated successfully']);
-}
 
 
     // public function refresh(Request $request)
