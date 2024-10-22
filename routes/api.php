@@ -121,6 +121,7 @@ Route::middleware('auth:sanctum')->group(function () {
            Route::delete('/masterhour/{id}', [\App\Http\Controllers\Api\Logistic\MasterHourController::class, 'destroy']);
 
             Route::get('/schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'index']);
+            Route::get('/show-schedule', [\App\Http\Controllers\Api\Logistic\ScheduleController::class, 'showSchedule']);
             Route::get('/transaksireq', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'index']);
             Route::get('/transaksireq_jadwal/{id_jadwal}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'showsechedule']);
             Route::get('/transaksireq/{id_req}', [\App\Http\Controllers\Api\Logistic\TransaksiRequestController::class, 'show']);

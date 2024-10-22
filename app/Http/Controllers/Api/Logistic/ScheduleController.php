@@ -31,6 +31,49 @@ class ScheduleController extends Controller
             ], 500);
         }
     }
+
+    // public function showScedule() 
+    // {
+    //     try {
+    //         $schedule = Schedule::with('transaksiRequest1')->orderBy('id', 'asc')->get();
+            
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $schedule
+    //         ], 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Failed to retrieve data',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+    public function showSchedule() 
+{
+    try {
+        $schedule = Schedule::with(['transaksiRequest1' => function($query) {
+            $query->first();
+        }])->orderBy('id', 'asc')->get();
+
+        // Untuk memastikan transaksi_request1 tidak dalam bentuk array
+        $schedule->each(function($item) {
+            $item->transaksi_request1 = $item->transaksiRequest1->first();
+        });
+        
+        return response()->json([
+            'success' => true,
+            'data' => $schedule
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to retrieve data',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
     
 
     // public function generateSchedule(Request $request)
