@@ -235,6 +235,13 @@ public function updatescanqrCodeSecurity(Request $request, $id_req) {
    
     $transaksirequests = TransaksiRequest::with('schedule')->where('id_req', $id_req)->first();
 
+    if (!$transaksirequests) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Booking ID not found',
+        ], 404);
+    }
+
     $scheduleStart = Carbon::parse($transaksirequests->schedule->mulai);
     $now = Carbon::now('Asia/Jakarta');
     $differenceInMinutes = $scheduleStart->diffInMinutes($now, false);
