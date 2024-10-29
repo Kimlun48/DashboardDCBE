@@ -238,12 +238,22 @@ class TransaksiRequestController extends Controller
         Log::info('Hari Jadwal (schedule->hari): ' . $transaksirequests->schedule->hari);
         Log::info('Hari Ini: ' . $today);
 
+
+
         // if ($transaksirequests->schedule->hari !== $today) {
         //     return response()->json([
         //         'success' => false,
         //         'message' => 'Transaction can only be updated on the scheduled day',
         //     ], 400);
         // }
+
+        // if ($differenceInMinutes > 30) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Update can only be done within 30 minutes before the scheduled time.',
+        //     ], 400);
+        // }
+
 
         if (
             $transaksirequests->date_arrived && $transaksirequests->date_completed &&
@@ -386,6 +396,68 @@ class TransaksiRequestController extends Controller
             'data' => $transaksiRequest
         ], 200);
     }
+    public function updateStatusScanAll($id_req)
+    {
+        $transaksiRequest = TransaksiRequest::where('id_req', $id_req)->first();
+
+        if (!$transaksiRequest) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Booking ID not found',
+            ], 404);
+        }
+
+        $currentDateTime = Carbon::now('Asia/Jakarta');
+
+        // Update status berdasarkan status saat ini
+        switch ($transaksiRequest->status) {
+            case 'RESERVED':
+                $transaksiRequest->update([
+                    'status' => 'CI SECURITY',
+                    'date_arrived' => $currentDateTime,
+                ]);
+                $message = 'Updated to CI SECURITY';
+                break;
+
+            case 'CI SECURITY':
+                $transaksiRequest->update([
+                    'status' => 'CI INBOUND',
+                    'date_loading_goods' => $currentDateTime,
+                ]);
+                $message = 'Updated to CI INBOUND';
+                break;
+
+            case 'CI INBOUND':
+                $transaksiRequest->update([
+                    'status' => 'CO INBOUND',
+                    'date_completed' => $currentDateTime,
+                ]);
+                $message = 'Updated to CO INBOUND';
+                break;
+
+            case 'CO INBOUND':
+                $transaksiRequest->update([
+                    'status' => 'CO SECURITY',
+                    'date_checkout_security' => $currentDateTime,
+                ]);
+                $message = 'Updated to CO SECURITY';
+                break;
+
+            default:
+                return response()->json([
+                    'success' => false,
+                    'message' => 'All stages are completed, no further updates allowed.',
+                ], 400);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'data' => $transaksiRequest
+        ], 200);
+    }
+
+
 
 
     public function logdoc()
