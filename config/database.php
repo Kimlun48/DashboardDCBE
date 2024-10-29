@@ -103,7 +103,11 @@ return [
             // 'logging' => true, // Aktifkan logging untuk koneksi ini
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-        ], 
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
+        ],
 
         'DB_EMAIL' => [
             'driver' => 'sqlsrv',
@@ -124,6 +128,10 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
         ],
 
         'DB_RKM_LIVE_2' => [
@@ -145,6 +153,10 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
         ],
 
         'DB_WMS' => [
@@ -166,6 +178,10 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
         ],
 
         'DB_STAGEWMS' => [
@@ -187,6 +203,10 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
         ],
         'DB_ILS' => [
             'driver' => 'sqlsrv',
@@ -207,10 +227,14 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-            
-        // 'ansi_nulls' => true,
-        // 'ansi_warnings' => true,
-    
+
+            // 'ansi_nulls' => true,
+            // 'ansi_warnings' => true,
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
+
         ],
 
         'DB_DUMMY' => [
@@ -232,10 +256,14 @@ return [
             // ],
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-            
-        // 'ansi_nulls' => true,
-        // 'ansi_warnings' => true,
-    
+
+            // 'ansi_nulls' => true,
+            // 'ansi_warnings' => true,
+            'options' => [
+                PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
+                "TrustServerCertificate" => env('DB_TRUST_SERVER_CERTIFICATE', true),
+            ],
+
         ],
 
 
@@ -271,7 +299,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
