@@ -11,12 +11,12 @@ class TransaksiRequest extends Model
     use HasFactory;
     protected $connection = 'DB_EMAIL';
     protected $table = 'Logistic_Transaksi_Req';
-    protected $primaryKey = 'id_req'; 
+    protected $primaryKey = 'id_req';
     protected $keyType = 'int';
     protected $fillable = [
-        'id_req', 
-        'vendor_code', 
-        'nama_vendor', 
+        'id_req',
+        'vendor_code',
+        'nama_vendor',
         'sopir',
         'id_jadwal',
         'id_kendaraan',
@@ -30,23 +30,7 @@ class TransaksiRequest extends Model
         'date_checkout_security'
 
     ];
-    // // public $timestamps = false; 
 
-    // public function schedule () 
-    // {
-    //     return $this->belongsTo(Schedule::class, 'id_jadwal', 'id');
-    // } 
-
-   
-    // public function schedule1 () 
-    // {
-    //     return $this->belongsTo(Schedule::class, 'id_req', 'id');
-    // } 
-
-    // public function logdoc () 
-    // {
-    //     return $this->hasMany(TransaksiRequest::class, 'id_req', 'id_trans_req');
-    // } 
     // Relasi ke Schedule berdasarkan id_jadwal
     public function schedule()
     {
@@ -63,5 +47,4 @@ class TransaksiRequest extends Model
     {
         return $this->hasMany(LogisticDocUpload::class, 'id_trans_req', 'id_req');
     }
-   
 }
