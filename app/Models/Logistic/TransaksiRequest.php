@@ -31,13 +31,13 @@ class TransaksiRequest extends Model
 
     ];
 
-    // Relasi ke Schedule berdasarkan id_jadwal
+
     public function schedule()
     {
         return $this->belongsTo(Schedule::class, 'id_jadwal', 'id');
     }
 
-    // Relasi kedua ke Schedule tetapi berdasarkan id_req
+
     public function schedule1()
     {
         return $this->belongsTo(Schedule::class, 'id_req', 'id');
