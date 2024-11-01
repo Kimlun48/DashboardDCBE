@@ -376,12 +376,12 @@ class TransaksiRequestController extends Controller
         // }
 
         // Validasi hanya dalam 30 menit sebelum waktu mulai
-        if ($differenceInMinutes < 0 || $differenceInMinutes <= 30) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Update can only be done within 30 minutes before the scheduled time.',
-            ], 400);
-        }
+        // if ($differenceInMinutes < 0 || $differenceInMinutes <= 30) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Update can only be done within 30 minutes before the scheduled time.',
+        //     ], 400);
+        // }
 
         // Cek status dan tanggal untuk memperbarui status
         if ($transaksirequests->date_checkout_security) {
