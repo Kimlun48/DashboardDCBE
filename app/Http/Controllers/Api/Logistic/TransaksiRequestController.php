@@ -366,15 +366,17 @@ class TransaksiRequestController extends Controller
                 'message' => 'Transaction can only be updated on the scheduled day',
             ], 400);
         }
-        //validasi telat jam booking
+
+        // Cek jika sudah melewati waktu mulai
         // if ($now->greaterThan($scheduleStart)) {
         //     return response()->json([
         //         'success' => false,
-        //         'message' => 'Update not allowed after the schedule start time.',
+        //         'message' => 'Update not allowed as the schedule start time has already passed.',
         //     ], 403);
         // }
-        //validasi scan hanya bisa 30 mnit sebeleum jam booking
-        if (!$now->between($scheduleStart->subMinutes(30), $scheduleStart)) {
+
+        // Validasi hanya dalam 30 menit sebelum waktu mulai
+        if ($differenceInMinutes < 0 || $differenceInMinutes <= 30) {
             return response()->json([
                 'success' => false,
                 'message' => 'Update can only be done within 30 minutes before the scheduled time.',
