@@ -115,21 +115,7 @@ class TransaksiRequestController extends Controller
         }
     }
 
-    public function showVendor($id_req)
-    {
-        //$transaksirequest = TransaksiRequest::find($id_jadwal);//
-        $transaksirequests = TransaksiRequest::with('schedule')->where('id_req', $id_req)->get();
-        if ($transaksirequests) {
-            return response()->json([
-                'success' => true,
-                'data' => $transaksirequests,
-            ], 200);
-        }
-        return response()->json([
-            'success' => false,
-            'message' => 'data not found',
-        ], 404);
-    }
+
 
     public function updatescanqrCodeInbound($id_req)
     {
@@ -324,6 +310,23 @@ class TransaksiRequestController extends Controller
     //         'data' => $transaksirequests
     //     ], 200);
     // }
+
+    public function showVendor($id_req)
+    {
+        //$transaksirequest = TransaksiRequest::find($id_jadwal);//
+        $transaksirequests = TransaksiRequest::with('schedule')->where('id_req', $id_req)->get();
+        if ($transaksirequests) {
+            return response()->json([
+                'success' => true,
+                'data' => $transaksirequests,
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'data not found',
+        ], 404);
+    }
+
     public function updatescanqrCodeSecurity(Request $request, $id_req)
     {
         // Ambil transaksi berdasarkan ID booking
@@ -363,8 +366,15 @@ class TransaksiRequestController extends Controller
                 'message' => 'Transaction can only be updated on the scheduled day',
             ], 400);
         }
-
-        if ($differenceInMinutes > 30) {
+        //validasi telat jam booking
+        // if ($now->greaterThan($scheduleStart)) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Update not allowed after the schedule start time.',
+        //     ], 403);
+        // }
+        //validasi scan hanya bisa 30 mnit sebeleum jam booking
+        if (!$now->between($scheduleStart->subMinutes(30), $scheduleStart)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Update can only be done within 30 minutes before the scheduled time.',
