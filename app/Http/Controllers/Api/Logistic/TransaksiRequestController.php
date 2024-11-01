@@ -327,6 +327,105 @@ class TransaksiRequestController extends Controller
         ], 404);
     }
 
+    // public function updatescanqrCodeSecurity(Request $request, $id_req)
+    // {
+    //     // Ambil transaksi berdasarkan ID booking
+    //     $transaksirequests = TransaksiRequest::with('schedule')->where('id_req', $id_req)->first();
+
+    //     // Jika Booking ID tidak ditemukan
+    //     if (!$transaksirequests) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Booking ID not found',
+    //         ], 404);
+    //     }
+
+    //     // Cek apakah ada transaksi lain yang memiliki status CI SECURITY
+    //     $activeTransactions = TransaksiRequest::where('status', 'CI SECURITY')->where('id_req', '!=', $id_req)->get();
+
+    //     if ($activeTransactions->isNotEmpty()) {
+    //         // Ambil ID req dari transaksi yang masih dalam status CI SECURITY
+    //         $activeIds = $activeTransactions->pluck('id_req')->implode(', ');
+
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => "Booking ID no : $activeIds must be complete before scanning the next item",
+    //         ], 400);
+    //     }
+
+    //     // Validasi tanggal dan waktu
+    //     $scheduleStart = Carbon::parse($transaksirequests->schedule->mulai);
+    //     $now = Carbon::now('Asia/Jakarta');
+    //     $differenceInMinutes = $scheduleStart->diffInMinutes($now, false);
+    //     $today = Carbon::today()->format('Y-m-d');
+
+    //     // Cek apakah transaksi bisa diperbarui berdasarkan jadwal
+    //     if ($transaksirequests->schedule->hari !== $today) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Transaction can only be updated on the scheduled day',
+    //         ], 400);
+    //     }
+
+    //     // Cek jika sudah melewati waktu mulai
+    //     // if ($now->greaterThan($scheduleStart)) {
+    //     //     return response()->json([
+    //     //         'success' => false,
+    //     //         'message' => 'Update not allowed as the schedule start time has already passed.',
+    //     //     ], 403);
+    //     // }
+
+    //     // Validasi hanya dalam 30 menit sebelum waktu mulai
+    //     // if ($differenceInMinutes < 0 || $differenceInMinutes <= 30) {
+    //     //     return response()->json([
+    //     //         'success' => false,
+    //     //         'message' => 'Update can only be done within 30 minutes before the scheduled time.',
+    //     //     ], 400);
+    //     // }
+
+    //     // Cek status dan tanggal untuk memperbarui status
+    //     if ($transaksirequests->date_checkout_security) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'All stages are completed, no further updates allowed.',
+    //         ], 400);
+    //     }
+
+    //     // Logika status untuk memperbarui tahap
+    //     if ($transaksirequests->date_arrived) {
+    //         // Jika sudah tiba, update ke CO SECURITY
+    //         if ($transaksirequests->date_loading_goods) {
+    //             $transaksirequests->update([
+    //                 'status' => 'CO SECURITY',
+    //                 'date_checkout_security' => now(),
+    //             ]);
+
+    //             return response()->json([
+    //                 'success' => true,
+    //                 'message' => 'Update to CO SECURITY success',
+    //                 'data' => $transaksirequests,
+    //             ], 200);
+    //         }
+
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Date CI Security is already set and cannot be updated',
+    //         ], 400);
+    //     }
+
+    //     // Jika belum tiba, update ke CI SECURITY
+    //     $transaksirequests->update([
+    //         'status' => 'CI SECURITY',
+    //         'date_arrived' => now(),
+    //     ]);
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'Update to CI SECURITY success',
+    //         'data' => $transaksirequests,
+    //     ], 200);
+    // }
+
     public function updatescanqrCodeSecurity(Request $request, $id_req)
     {
         // Ambil transaksi berdasarkan ID booking
@@ -353,36 +452,6 @@ class TransaksiRequestController extends Controller
             ], 400);
         }
 
-        // Validasi tanggal dan waktu
-        $scheduleStart = Carbon::parse($transaksirequests->schedule->mulai);
-        $now = Carbon::now('Asia/Jakarta');
-        $differenceInMinutes = $scheduleStart->diffInMinutes($now, false);
-        $today = Carbon::today()->format('Y-m-d');
-
-        // Cek apakah transaksi bisa diperbarui berdasarkan jadwal
-        if ($transaksirequests->schedule->hari !== $today) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Transaction can only be updated on the scheduled day',
-            ], 400);
-        }
-
-        // Cek jika sudah melewati waktu mulai
-        // if ($now->greaterThan($scheduleStart)) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Update not allowed as the schedule start time has already passed.',
-        //     ], 403);
-        // }
-
-        // Validasi hanya dalam 30 menit sebelum waktu mulai
-        // if ($differenceInMinutes < 0 || $differenceInMinutes <= 30) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Update can only be done within 30 minutes before the scheduled time.',
-        //     ], 400);
-        // }
-
         // Cek status dan tanggal untuk memperbarui status
         if ($transaksirequests->date_checkout_security) {
             return response()->json([
@@ -393,7 +462,7 @@ class TransaksiRequestController extends Controller
 
         // Logika status untuk memperbarui tahap
         if ($transaksirequests->date_arrived) {
-            // Jika sudah tiba, update ke CO SECURITY
+            // Jika sudah tiba, update ke CO SECURITY tanpa validasi waktu
             if ($transaksirequests->date_loading_goods) {
                 $transaksirequests->update([
                     'status' => 'CO SECURITY',
@@ -413,7 +482,47 @@ class TransaksiRequestController extends Controller
             ], 400);
         }
 
-        // Jika belum tiba, update ke CI SECURITY
+        // Jika belum tiba, update ke CI SECURITY dengan validasi waktu
+        $scheduleStart = Carbon::parse($transaksirequests->schedule->mulai);
+        $now = Carbon::now('Asia/Jakarta');
+        $differenceInMinutes = $scheduleStart->diffInMinutes($now, false);
+        $today = Carbon::today()->format('Y-m-d');
+
+        // Cek apakah transaksi bisa diperbarui berdasarkan jadwal
+        if ($transaksirequests->schedule->hari !== $today) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Transaction can only be updated on the scheduled day',
+            ], 400);
+        }
+
+        //validasi scan kurang dari 30 menit
+        if ($differenceInMinutes < 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Update to CI SECURITY can only be done within 30 minutes before the scheduled time.',
+            ], 400);
+        }
+
+        //validasi telat
+        // if ($now->greaterThan($scheduleStart)) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Update not allowed as the schedule start time has LATE',
+        //     ], 403);
+        // }
+
+
+        // Validasi hanya dalam 30 menit sebelum waktu mulai telat
+        // if ($differenceInMinutes < 0 || $differenceInMinutes > 30) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Update to CI SECURITY can only be done within 30 minutes before the scheduled time.',
+        //     ], 400);
+        // }
+
+
+        // Jika validasi berhasil, update ke CI SECURITY
         $transaksirequests->update([
             'status' => 'CI SECURITY',
             'date_arrived' => now(),
@@ -425,6 +534,7 @@ class TransaksiRequestController extends Controller
             'data' => $transaksirequests,
         ], 200);
     }
+
 
 
     public function updateStatusScan(Request $request, $id_req)
